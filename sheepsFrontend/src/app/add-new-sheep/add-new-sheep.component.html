@@ -1,0 +1,227 @@
+<form #addForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form" dir="rtl"
+    style="margin-top: 60px;">
+    <p-messages></p-messages>
+    <div class="ui-g ui-fluid" style="margin-top: 10px;">
+
+        <div class="ui-g-14">
+            <div class="card card-w-title">
+                <h1>اضافة (فحل او نعجة)</h1>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheep.code" formControlName="code"
+                                id="code" name="code"  pInputText type="text">
+                                <div *ngIf="(form.get('code').invalid&&form.get('code').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('code').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الكود مطلوب 
+                                    </div>
+                                    <div *ngIf="form.get('code').errors?.pattern"
+                                    class="ui-message ui-messages-error ui-corner-all" >
+                                    لابد ان لا يحتوي الكود على حروف
+                                    </div>
+                                </div>
+                            <label>الكود<span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sheep.color" [options]="colors"
+                                formControlName="color" id="color" name="color"
+                                placeholder="اللون"></p-dropdown>
+                                <div *ngIf="(form.get('color').invalid&&form.get('color').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('color').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        اللون مطلوب
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+                 
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar [(ngModel)]="sheep.birthDate" formControlName="birthDate" name="birthDate"
+                                    maxlength="50" pInputText placeholder="تاريخ الميلاد">
+                                </p-calendar>
+                                <!-- <div *ngIf="(form.get('birthDate').invalid&&form.get('birthDate').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                <div *ngIf="form.get('birthDate').errors?.required"
+                                    class="ui-message ui-messages-error ui-corner-all">
+                                    تاريخ الميلاد مطلوب
+                                </div>
+                                </div> -->
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheep.age" formControlName="age"
+                                id="age" name="age"  pInputText type="text">
+                                <div *ngIf="(form.get('age').invalid&&form.get('age').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('age').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        العمر مطلوب
+                                    </div>
+                                   
+                                </div>
+                            <label>العمر<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div> -->
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sheep.type" [options]="types"
+                                formControlName="type" id="type" name="type"
+                                placeholder="النوع"></p-dropdown>
+                                <div *ngIf="(form.get('type').invalid&&form.get('type').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('type').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                       النوع مطلوب
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+                 
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar [(ngModel)]="sheep.arrivalDate" formControlName="arrivalDate" name="arrivalDate"
+                                    maxlength="50" pInputText placeholder="تاريخ الوصول">
+                                </p-calendar>
+                                <!-- <div *ngIf="(form.get('arrivalDate').invalid&&form.get('arrivalDate').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('arrivalDate').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        تاريخ الوصول مطلوب
+                                    </div>
+                                </div> -->
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheep.named" formControlName="named"
+                                id="named" name="named"  pInputText type="text">
+                                <div *ngIf="(form.get('named').invalid&&form.get('named').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('named').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        المسمي مطلوب 
+                                    </div>
+                                    
+                            </div>
+                            <label>المسمي<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheep.weight" formControlName="weight"
+                                id="weight" name="weight"  pInputText type="text">
+                                <div *ngIf="(form.get('weight').invalid&&form.get('weight').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('weight').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الوزن مطلوب 
+                                    </div>
+                                    
+                            </div>
+                            <label>الوزن<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sheep.place" [options]="places"
+                                formControlName="place" id="place" name="place"
+                                placeholder="المكان"></p-dropdown>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheep.shape" formControlName="shape"
+                                id="shape" name="shape"  pInputText type="text">
+                                <div *ngIf="(form.get('shape').invalid&&form.get('shape').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('shape').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الشكل مطلوب
+                                    </div>
+                                    
+                            </div>     
+                            <label>الشكل<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sheep.status" [options]="statuses"
+                                formControlName="status" id="status" name="status"
+                                placeholder="الحالة"></p-dropdown>
+                                <div *ngIf="(form.get('status').invalid&&form.get('status').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('status').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        الحالة مطلوبة
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheep.advantages" formControlName="advantages"
+                                id="advantages" name="advantages"  pInputText type="text">
+                            <label>المميزات</label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheep.disadvantages" formControlName="disadvantages"
+                                id="disadvantages" name="disadvantages"  pInputText type="text">
+                            <label>العيوب</label>
+                        </span>
+                    </div>
+                   
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheep.notes" formControlName="notes"
+                                id="notes" name="notes"  pInputText type="text">
+                            <label>الملحوظات</label>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g form-group"  style="margin-left: auto;width: 20%;">
+        <div class=" ui-g-12 ui-md-6">
+            <button class="ui-button-info"  icon="ui-icon-add" label="اضافة"
+                pButton pRipple style="margin-top: 20px;" type="submit"></button>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel"
+                label="الغاء" pButton pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                type="button"></button>
+        </div>
+    </div>
+
+</form>

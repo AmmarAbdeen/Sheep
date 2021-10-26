@@ -1,0 +1,166 @@
+<div class="ui-g ui-fluid" style="margin-top: 60px;">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <form #addForm="ngForm" [formGroup]="form" (ngSubmit)="onsubmit()" class="contact-form"
+                  dir="rtl">
+                <p-messages></p-messages>
+                <div class="ui-g form-group">
+                    <h1 style="width: 60%;">مشتريات الاعلاف </h1>
+                </div>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feed.name" formControlName="name"
+                                id="name" name="name"  pInputText type="text">
+                                <div *ngIf="(form.get('name').invalid&&form.get('name').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('name').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        اسم العلف المضاف مطلوب
+                                    </div>
+                               </div>
+                            <label>اسم العلف المضاف<span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar [(ngModel)]="feed.storageDate" formControlName="storageDate" name="storageDate"
+                                    maxlength="50" pInputText placeholder="تاريخ الشراء">
+                                </p-calendar>
+                                <!-- <div *ngIf="(form.get('storageDate').invalid&&form.get('storageDate').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                <div *ngIf="form.get('storageDate').errors?.required"
+                                    class="ui-message ui-messages-error ui-corner-all">
+                                    تاريخ الشراء مطلوب
+                                </div>
+                                </div> -->
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feed.weight" formControlName="weight"
+                                id="weight" name="weight"  pInputText type="text">
+                            <div *ngIf="(form.get('weight').invalid&&form.get('weight').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('weight').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         الوزن مطلوب
+                                    </div>
+                            </div>
+                            <label>الوزن<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feed.quantity" formControlName="quantity"
+                                id="quantity" name="quantity"  pInputText type="text">
+                            <div *ngIf="(form.get('quantity').invalid&&form.get('quantity').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('quantity').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         الكمية مطلوبة
+                                    </div>
+                            </div>
+                            <label>الكمية<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>       
+                    
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feed.price" formControlName="price"
+                                id="price" name="price"  pInputText type="text">
+                            <div *ngIf="(form.get('price').invalid&&form.get('price').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('price').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         السعر مطلوب
+                                    </div>
+                            </div>
+                            <label>السعر<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>               
+                  
+                   
+                </div>
+
+                <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
+
+                    <div class=" ui-g-12 ui-md-6">
+                        <button class="ui-button-info"  icon="ui-icon-add" label="حفظ"
+                            pButton pRipple style="margin-top: 20px;" type="submit"></button>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel"
+                            label="الغاء" pButton pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                            type="button"></button>
+                    </div>                  
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="ui-g-12">
+    <div class="card card-w-title">
+        <p-table #dt [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"        
+        [value]="food" dataKey="name" selectionMode="single" styleClass="ui-table-cars">
+        <ng-template pTemplate="caption">
+            <div>
+                <div style="text-align: left;">
+                        <label style="margin-left: 50%;">مشتريات الاعلاف</label>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-columns pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field" >
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                    <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'name'"
+                        class="ui-column-filter" pInputText placeholder="تحتوي على"
+                        style="width: 100%; margin-top: 0;" type="text">                   
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'storageDate'" class="ui-column-filter" pInputText
+                        style="width: 100%; margin-top: 0;" type="date">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'weight'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'quantity'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'price'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template let-columns="columns" let-rowData pTemplate="body">
+            <tr [pEditableRow]="rowData" [pSelectableRow]="rowData">
+                <td>{{rowData.name}}</td>
+                <td>{{rowData.storageDate | date: 'MM/dd/yyyy'}}</td>
+                <td>{{rowData.weight}}</td>
+                <td>{{rowData.quantity}}</td>
+                <td>{{rowData.price}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+</div>
