@@ -1,0 +1,271 @@
+<form #addForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form" dir="rtl"
+    style="margin-top: 60px;">
+    <p-messages></p-messages>
+    <div class="ui-g ui-fluid" style="margin-top: 10px;">
+
+        <div class="ui-g-14">
+            <div class="card card-w-title">
+                <h1>اضافة حمل</h1>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.code" formControlName="code"
+                                id="code" name="code"  pInputText type="text">
+                                <div *ngIf="(form.get('code').invalid&&form.get('code').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('code').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الكود مطلوب 
+                                    </div>
+                                    <div *ngIf="form.get('code').errors?.pattern"
+                                    class="ui-message ui-messages-error ui-corner-all" >
+                                    لابد ان لا يحتوي الكود على حروف
+                                    </div>
+                                </div>
+                            <label>الكود<span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="lamb.color" [options]="colors"
+                                formControlName="color" id="color" name="color"
+                                placeholder="اللون"></p-dropdown>
+                                <div *ngIf="(form.get('color').invalid&&form.get('color').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('color').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        اللون مطلوب
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+                 
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar [(ngModel)]="lamb.birthDate" formControlName="birthDate" name="birthDate"
+                                    maxlength="50" pInputText placeholder="تاريخ الميلاد">
+                                </p-calendar>
+                                <!-- <div *ngIf="(form.get('birthDate').invalid&&form.get('birthDate').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                <div *ngIf="form.get('birthDate').errors?.required"
+                                    class="ui-message ui-messages-error ui-corner-all">
+                                    تاريخ الميلاد مطلوب
+                                </div>
+                                </div> -->
+                            </span>
+                        </div>
+                    </div>
+
+                
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="lamb.type" [options]="types"
+                                formControlName="type" id="type" name="type"
+                                placeholder="النوع"></p-dropdown>
+                                <div *ngIf="(form.get('type').invalid&&form.get('type').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('type').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                       النوع مطلوب
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+                 
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar [(ngModel)]="lamb.dateOfMating" formControlName="dateOfMating" name="dateOfMating"
+                                    maxlength="50" pInputText placeholder="تاريخ دخول الفحل">
+                                </p-calendar>
+                                <!-- <div *ngIf="(form.get('dateOfMating').invalid&&form.get('dateOfMating').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('dateOfMating').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        تاريخ دخول الفحل مطلوب
+                                    </div>
+                                </div> -->
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.weightOfBirth" formControlName="weightOfBirth"
+                                id="weightOfBirth" name="weightOfBirth"  pInputText type="text">
+                                <div *ngIf="(form.get('weightOfBirth').invalid&&form.get('weightOfBirth').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('weightOfBirth').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الوزن عند الولادة مطلوب 
+                                    </div>
+                                    
+                            </div>
+                            <label>الوزن عند الولادة<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.weightOfWeaning" formControlName="weightOfWeaning"
+                                id="weightOfWeaning" name="weightOfWeaning"  pInputText type="text">
+                                <div *ngIf="(form.get('weightOfWeaning').invalid&&form.get('weightOfWeaning').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('weightOfWeaning').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الوزن عند الفطام مطلوب 
+                                    </div>
+                                    
+                            </div>
+                            <label>الوزن عند الفطام<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.weightAtSale" formControlName="weightAtSale"
+                                id="weightAtSale" name="weightAtSale"  pInputText type="text">
+                                <div *ngIf="(form.get('weightAtSale').invalid&&form.get('weightAtSale').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('weightAtSale').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الوزن عند البيع مطلوب 
+                                    </div>
+                                    
+                            </div>
+                            <label>الوزن عند البيع<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.weigthOfSheep" formControlName="weigthOfSheep"
+                                id="weigthOfSheep" name="weigthOfSheep"  pInputText type="text">
+                                <div *ngIf="(form.get('weigthOfSheep').invalid&&form.get('weigthOfSheep').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('weigthOfSheep').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        وزن الام عند الولاده مطلوب 
+                                    </div>
+                                    
+                            </div>
+                            <label>وزن الام عند الولاده<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.named" formControlName="named"
+                                id="named" name="named"  pInputText type="text">
+                                <div *ngIf="(form.get('named').invalid&&form.get('named').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('named').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        المسمي مطلوب 
+                                    </div>
+                                    
+                            </div>
+                            <label>المسمي<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="lamb.sheepDTO" [options]="sheeps"
+                                formControlName="sheepDTO" id="sheepDTO" name="sheepDTO"
+                                placeholder="الام"></p-dropdown>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="lamb.place" [options]="places"
+                                formControlName="place" id="place" name="place"
+                                placeholder="المكان"></p-dropdown>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.shape" formControlName="shape"
+                                id="shape" name="shape"  pInputText type="text">
+                                <div *ngIf="(form.get('shape').invalid&&form.get('shape').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('shape').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الشكل مطلوب
+                                    </div>
+                                    
+                            </div>     
+                            <label>الشكل<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="lamb.status" [options]="statuses"
+                                formControlName="status" id="status" name="status"
+                                placeholder="الحالة"></p-dropdown>
+                                <div *ngIf="(form.get('status').invalid&&form.get('status').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('status').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        الحالة مطلوبة
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.advantages" formControlName="advantages"
+                                id="advantages" name="advantages"  pInputText type="text">
+                            <label>المميزات</label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.disadvantages" formControlName="disadvantages"
+                                id="disadvantages" name="disadvantages"  pInputText type="text">
+                            <label>العيوب</label>
+                        </span>
+                    </div>
+                   
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="lamb.notes" formControlName="notes"
+                                id="notes" name="notes"  pInputText type="text">
+                            <label>الملحوظات</label>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g form-group"  style="margin-left: auto;width: 20%;">
+        <div class=" ui-g-12 ui-md-6">
+            <button class="ui-button-info"  icon="ui-icon-add" label="اضافة"
+                pButton pRipple style="margin-top: 20px;" type="submit"></button>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel"
+                label="الغاء" pButton pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                type="button"></button>
+        </div>
+    </div>
+
+</form>

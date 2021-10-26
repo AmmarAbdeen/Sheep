@@ -1,0 +1,205 @@
+<div class="ui-g ui-fluid" style="margin-top: 60px;">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <form #searchForm="ngForm" [formGroup]="form" (ngSubmit)="onsubmit()" class="contact-form"
+                  dir="rtl">
+                <p-messages></p-messages>
+                <div class="ui-g form-group">
+                    <h1 style="width: 60%;">القيمة الغذائية للاعلاف  </h1>
+                </div>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feedLookups.name" formControlName="name"
+                                id="name" name="name"  pInputText type="text">
+                                <div *ngIf="(form.get('name').invalid&&form.get('name').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('name').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        اسم العلف المضاف مطلوب
+                                    </div>
+                               </div>
+                            <label>العلف <span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feedLookups.benefitOfIt" formControlName="benefitOfIt"
+                                id="benefitOfIt" name="benefitOfIt"  pInputText type="text">
+                            <div *ngIf="(form.get('benefitOfIt').invalid&&form.get('benefitOfIt').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('benefitOfIt').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         المستفاد منه مطلوب
+                                    </div>
+                            </div>
+                            <label>المستفاد منه<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feedLookups.dryAmount" formControlName="dryAmount"
+                                id="dryAmount" name="dryAmount"  pInputText type="text">
+                            <div *ngIf="(form.get('dryAmount').invalid&&form.get('dryAmount').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('dryAmount').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         المقدار الجاف مطلوبة
+                                    </div>
+                            </div>
+                            <label>المقدار الجاف<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>          
+                    
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feedLookups.energyMj" formControlName="energyMj"
+                                id="energyMj" name="energyMj"  pInputText type="text">
+                            <div *ngIf="(form.get('energyMj').invalid&&form.get('energyMj').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('energyMj').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                        الطاقة ( ميجاكالوري)  مطلوبة
+                                    </div>
+                            </div>
+                            <label>الطاقة ( ميجاكالوري) <span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>          
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feedLookups.calcium" formControlName="calcium"
+                                id="calcium" name="calcium"  pInputText type="text">
+                            <div *ngIf="(form.get('calcium').invalid&&form.get('calcium').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('calcium').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         مقدار الكالسيوم مطلوب
+                                    </div>
+                            </div>
+                            <label>الكالسيوم <span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>          
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feedLookups.phosphorous" formControlName="phosphorous"
+                                id="phosphorous" name="phosphorous"  pInputText type="text">
+                            <div *ngIf="(form.get('phosphorous').invalid&&form.get('phosphorous').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('phosphorous').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         مقدار الفسفور مطلوب
+                                    </div>
+                            </div>
+                            <label>الفسفور <span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>      
+                    
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="feedLookups.protein" formControlName="protein"
+                                id="protein" name="protein"  pInputText type="text">
+                            <div *ngIf="(form.get('protein').invalid&&form.get('protein').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('protein').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         مقدار البروتين مطلوب 
+                                    </div>
+                            </div>
+                            <label>البروتين <span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>      
+                  
+                   
+                </div>
+
+                <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
+
+                    <div class=" ui-g-12 ui-md-6">
+                        <button class="ui-button-info"  icon="ui-icon-add" label="حفظ"
+                            pButton pRipple style="margin-top: 20px;" type="submit"></button>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel"
+                            label="الغاء" pButton pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                            type="button"></button>
+                    </div>                  
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="ui-g-12">
+    <div class="card card-w-title">
+        <p-table #dt [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"        
+        [value]="lookups" dataKey="name" selectionMode="single" styleClass="ui-table-cars">
+        <ng-template pTemplate="caption">
+            <div>
+                <div style="text-align: left;">
+                        <label style="margin-left: 50%;">القيمة الغذائية للاعلاف</label>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-columns pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field" >
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                    <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'name'"
+                        class="ui-column-filter" pInputText placeholder="تحتوي على"
+                        style="width: 100%; margin-top: 0;" type="text">                   
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'benefitOfIt'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'dryAmount'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'energyMj'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">    
+                        <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'calcium'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'phosphorous'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'protein'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">        
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template let-columns="columns" let-rowData pTemplate="body">
+            <tr [pEditableRow]="rowData" [pSelectableRow]="rowData">
+                <td>{{rowData.name}}</td>
+                <td>{{rowData.benefitOfIt}}</td>
+                <td>{{rowData.dryAmount}}</td>
+                <td>{{rowData.energyMj}}</td>
+                <td>{{rowData.calcium}}</td>
+                <td>{{rowData.phosphorous}}</td>
+                <td>{{rowData.protein}}</td>
+                <td><button (click)="edit(rowData)" title="تعديل" class="ui-button-info" icon="ui-icon-edit"
+                    pButton></button></td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+</div>
