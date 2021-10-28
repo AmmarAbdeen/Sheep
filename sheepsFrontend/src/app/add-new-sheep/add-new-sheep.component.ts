@@ -61,6 +61,10 @@ export class AddNewSheepComponent implements OnInit {
       this.generalService.getSheepForEdit(body).subscribe(
         (data) => {
            this.sheep = data;
+           this.places.push({
+            label: this.sheep.place.code,
+            value: this.sheep.place
+        });
            this.sheep.birthDate = this.sheep.birthDate != null ? new Date(this.sheep.birthDate) : null;
            this.sheep.arrivalDate = this.sheep.arrivalDate != null ? new Date(this.sheep.arrivalDate) : null;
           },(error) => {
@@ -92,7 +96,6 @@ export class AddNewSheepComponent implements OnInit {
       code: this.sheep.code,
       type: this.sheep.type,
       status: this.sheep.status,
-      place: this.sheep.place,
       color: this.sheep.color,
       // age: this.sheep.age,
       weight: this.sheep.weight,
@@ -100,6 +103,7 @@ export class AddNewSheepComponent implements OnInit {
       advantages: this.sheep.advantages,
       disadvantages: this.sheep.disadvantages,
       notes: this.sheep.notes,
+      place:this.sheep.place,
       birthDate: this.datePipe.transform(this.sheep.birthDate, 'yyyy-MM-dd 00:00'),
       arrivalDate: this.datePipe.transform(this.sheep.arrivalDate, 'yyyy-MM-dd 00:00'),
                   };

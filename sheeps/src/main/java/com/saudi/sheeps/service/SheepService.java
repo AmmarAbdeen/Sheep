@@ -18,8 +18,10 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.PlacesDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dto.SheepDTO;
+import com.saudi.sheeps.entity.Places;
 import com.saudi.sheeps.entity.Sheep;
 import com.saudi.sheeps.exception.BusinessException;
 
@@ -31,6 +33,10 @@ public class SheepService {
 
 	@Autowired
 	private SheepDAO sheepDAO;
+	@Autowired
+	private PlacesService placesService;
+	@Autowired
+	private PlacesDAO placesDAO;
 	@PersistenceContext
 	public EntityManager em;
 
@@ -55,6 +61,9 @@ public class SheepService {
 			}
 			if (sheepRequest.getType() == null || sheepRequest.getType().isEmpty()) {
 				throw new BusinessException("Type of sheep is required ");
+			}
+			if (sheepRequest.getPlace() == null) {
+				throw new BusinessException("place of sheep is required ");
 			}
 			Sheep sheep = sheepDAO.findByCodeAndColor(sheepRequest.getCode(), sheepRequest.getColor());
 			if (sheep != null) {
@@ -92,6 +101,9 @@ public class SheepService {
 			if (sheepRequest.getType() == null || sheepRequest.getType().isEmpty()) {
 				throw new BusinessException("Type of sheep is required ");
 			}
+			if (sheepRequest.getPlace() == null) {
+				throw new BusinessException("place of sheep is required ");
+			}
 			Sheep sheep = sheepDAO.findById(sheepRequest.getId()).get();
 			saveChangedDTOInEntity(sheep,sheepRequest);
 			sheepDAO.save(sheep);
@@ -118,6 +130,8 @@ public class SheepService {
 		sheep.setStatus(sheepDTO.getStatus());
 		sheep.setType(sheepDTO.getType());
 		sheep.setWeight(sheepDTO.getWeight());
+		Places places = placesDAO.findById(sheepDTO.getPlace().getId()).get();
+		sheep.setPlaces(places);
 		
 	}
 	
@@ -231,6 +245,8 @@ public class SheepService {
 		sheep.setStatus(sheepDTO.getStatus());
 		sheep.setType(sheepDTO.getType());
 		sheep.setWeight(sheepDTO.getWeight());
+		Places places = placesDAO.findById(sheepDTO.getPlace().getId()).get();
+		sheep.setPlaces(places);
 		return sheep;
 	}
 
@@ -252,6 +268,7 @@ public class SheepService {
 		sheepDTO.setStatus(sheep.getStatus());
 		sheepDTO.setType(sheep.getType());
 		sheepDTO.setWeight(sheep.getWeight());
+		sheepDTO.setPlace(placesService.mapToDTO(sheep.getPlaces()));
 		return sheepDTO;
 	}
 	

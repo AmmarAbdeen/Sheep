@@ -1,3 +1,5 @@
+import { Place } from "./Place";
+
 export class Sheep {
     id: number;
     code: string;
@@ -13,6 +15,6 @@ export class Sheep {
     disadvantages: string;
     type: string;
     notes: string;
-    place: string;
+    place: Place;
 
 }

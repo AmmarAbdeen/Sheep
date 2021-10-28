@@ -22,10 +22,12 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.saudi.sheeps.dao.LambsDAO;
+import com.saudi.sheeps.dao.PlacesDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dto.LambsDTO;
 import com.saudi.sheeps.dto.SheepDTO;
 import com.saudi.sheeps.entity.Lambs;
+import com.saudi.sheeps.entity.Places;
 import com.saudi.sheeps.entity.Sheep;
 import com.saudi.sheeps.exception.BusinessException;
 
@@ -43,6 +45,10 @@ public class LambsService {
 	private SheepDAO sheepDAO;
 	@PersistenceContext
 	public EntityManager em;
+	@Autowired
+	private PlacesService placesService;
+	@Autowired
+	private PlacesDAO placesDAO;
 	
 	public LambsDTO addNewLamb(LambsDTO lambsRequest)throws BusinessException{
 		try {
@@ -61,6 +67,9 @@ public class LambsService {
 			}
 			if (lambsRequest.getType() == null || lambsRequest.getType().isEmpty()) {
 				throw new BusinessException("Type of Lambs is required ");
+			}
+			if (lambsRequest.getPlace() == null) {
+				throw new BusinessException("PLace of Lambs is required ");
 			}
 			Sheep sheep = sheepDAO.findByCodeAndColor(lambsRequest.getSheepDTO().getCode(), lambsRequest.getSheepDTO().getColor());
 			if (sheep == null) {
@@ -114,6 +123,9 @@ public class LambsService {
 			if (lambDTO.getType() == null || lambDTO.getType().isEmpty()) {
 				throw new BusinessException("Type of Lambs is required ");
 			}
+			if (lambDTO.getPlace() == null) {
+				throw new BusinessException("PLace of Lambs is required ");
+			}
 			Sheep sheep = sheepDAO.findByCodeAndColor(lambDTO.getSheepDTO().getCode(), lambDTO.getSheepDTO().getColor());
 			if (sheep == null) {
 				throw new BusinessException("The lamb mother not exist");
@@ -149,6 +161,8 @@ public class LambsService {
 		lamb.setType(lambDTO.getType());
 		Sheep sheep = sheepDAO.findByCodeAndColor(lambDTO.getSheepDTO().getCode(),lambDTO.getSheepDTO().getColor());
 		lamb.setSheep(sheep);
+		Places places = placesDAO.findById(lambDTO.getPlace().getId()).get();
+		lamb.setPlaces(places);
 		
 	}
 	
@@ -256,6 +270,8 @@ public class LambsService {
 		lamb.setType(lambDTO.getType());
 		Sheep sheep = sheepDAO.findByCodeAndColor(lambDTO.getSheepDTO().getCode(),lambDTO.getSheepDTO().getColor());
 		lamb.setSheep(sheep);
+		Places places = placesDAO.findById(lambDTO.getPlace().getId()).get();
+		lamb.setPlaces(places);
 		return lamb;
 	}
 
@@ -281,6 +297,7 @@ public class LambsService {
 		lambDTO.setWeightAtSale(lamb.getSellingWeight());
 		lambDTO.setWeightOfWeaning(lamb.getWeaningWeight());
 		lambDTO.setSheepDTO(sheepService.mapToDTO(lamb.getSheep()));
+		lambDTO.setPlace(placesService.mapToDTO(lamb.getPlaces()));
 		return lambDTO;
 	}
 	

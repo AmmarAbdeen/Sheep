@@ -27,7 +27,7 @@ public class LambsDTO extends BaseDTO{
 	private String disadvantages;
 	private String type;
 	private String notes;
-	private Places places;
+	private PlacesDTO place;
 	private String fromBirthDate;
 	private String toBirthDate;
 	private SheepDTO sheepDTO;

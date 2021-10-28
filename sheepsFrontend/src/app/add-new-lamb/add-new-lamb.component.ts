@@ -58,12 +58,16 @@ export class AddNewLambComponent implements OnInit {
         color: color,
       };
       this.generalService.getLambForEdit(body).subscribe(
-        (data) => {console.log(data);
+        (data) => {
            this.lamb = data;
            this.sheeps.push({
             label: "code : "+this.lamb.sheepDTO.code +" , color : "+this.lamb.sheepDTO.color,
             value: this.lamb.sheepDTO
            });
+           this.places.push({
+            label: this.lamb.place.code,
+            value: this.lamb.place
+        });
            this.lamb.birthDate = this.lamb.birthDate != null ? new Date(this.lamb.birthDate) : null;
            this.lamb.dateOfMating = this.lamb.dateOfMating != null ? new Date(this.lamb.dateOfMating) : null;
           },(error) => {
@@ -96,7 +100,6 @@ export class AddNewLambComponent implements OnInit {
       code: this.lamb.code,
       type: this.lamb.type,
       status: this.lamb.status,
-      place: this.lamb.place,
       sheepDTO: this.lamb.sheepDTO,
       color: this.lamb.color,
       weightOfBirth: this.lamb.weightOfBirth,
@@ -107,6 +110,7 @@ export class AddNewLambComponent implements OnInit {
       advantages: this.lamb.advantages,
       disadvantages: this.lamb.disadvantages,
       notes: this.lamb.notes,
+      place:this.lamb.place,
       birthDate: this.datePipe.transform(this.lamb.birthDate, 'yyyy-MM-dd 00:00'),
       dateOfMating: this.datePipe.transform(this.lamb.dateOfMating, 'yyyy-MM-dd 00:00'),
                   };

@@ -1,3 +1,4 @@
+import { Place } from "./Place";
 import { Sheep } from "./Sheep";
 
 export class Lamb {
@@ -17,7 +18,7 @@ export class Lamb {
     disadvantages: string;
     type: string;
     notes: string;
-    place: string;
+    place: Place;
     sheepDTO:Sheep;
     weigthOfSheep:String;
 
