@@ -1,5 +1,6 @@
 package com.saudi.sheeps.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -13,8 +14,10 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -22,7 +25,8 @@ import lombok.Setter;
 @Getter
 @Builder
 
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "MEDICINE")
 public class Medicine {
 	
@@ -37,20 +41,19 @@ public class Medicine {
 
 
 	@Expose
-	@Column(name = "NAME", unique = true,nullable = false)
+	@Column(name = "NAME",nullable = false)
 	private String name;
 
 	@Expose
-	@Column(name = "COST", unique = true,nullable = false)
+	@Column(name = "COST",nullable = false)
 	private String cost;
 	
 	@Expose
-	@Column(name = "QUANTITY", unique = true,nullable = false)
-	private String quantity;
+	@Column(name = "QUANTITY",nullable = false)
+	private Double quantity;
 
-	@CreationTimestamp
 	@Column(name = "EXPIRY_Date")
-	private LocalDateTime expiryDate;
+	private LocalDate expiryDate;
 	
 	@Expose
 	@Column(name = "DESCRIPTION",  nullable = false)

@@ -40,7 +40,23 @@ export class AppMenuComponent implements OnInit {
             items: [
               {label: 'الحظائر', icon: 'storefront', routerLink: ['/sheepframe/placecomponents/places']},
               {label: 'تغذية الحظائر', icon: 'shopping_cart', routerLink: ['/sheepframe/placecomponents/placesfeed']}
-    ]}
+    ]},
+    {
+        label: 'الادوية', icon: 'storefront', badge: '2', routerLink: ['/sheepframe/medicinecomponents'], badgeStyleClass: 'orange-badge',
+        items: [
+          {label: 'اضافة ادوية', icon: 'storefront', routerLink: ['/sheepframe/medicinecomponents/medicine']},
+          {label: 'ادوية امراض القطيع', icon: 'shopping_cart', routerLink: ['/sheepframe/medicinecomponents/sheepmedicine']}
+            ]
+        },
+
+        {
+            label: 'حركة القطيع', icon: 'storefront', badge: '2', routerLink: ['/sheepframe/sheepmovement'], badgeStyleClass: 'orange-badge',
+            items: [
+              {label: 'حركة القطيع', icon: 'storefront', routerLink: ['/sheepframe/sheepmovement/movement']},
+              {label: ' بحث ', icon: 'shopping_cart', routerLink: ['/sheepframe/sheepmovement/movementsearch']}
+                ]
+            },
+
         ];
     }
 

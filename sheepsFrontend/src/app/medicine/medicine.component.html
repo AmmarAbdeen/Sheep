@@ -5,22 +5,22 @@
                   dir="rtl">
                 <p-messages></p-messages>
                 <div class="ui-g form-group">
-                    <h1 style="width: 60%;">الحظائر</h1>
+                    <h1 style="width: 60%;">الادوية</h1>
                 </div>
                 <div class="ui-g form-group">
 
                     <div class="ui-g-12 ui-md-6">
                         <span class="md-inputfield">
-                            <input [(ngModel)]="place.code" formControlName="code"
-                                id="code" name="code"  pInputText type="text">
-                                <div *ngIf="(form.get('code').invalid&&form.get('code').touched)||validateAllForm"
+                            <input [(ngModel)]="medicine.name" formControlName="name"
+                                id="name" name="name"  pInputText type="text">
+                                <div *ngIf="(form.get('name').invalid&&form.get('name').touched)||validateAllForm"
                                 class="ui-message ui-messages-error ui-corner-all">
-                                    <div *ngIf="form.get('code').errors?.required"
+                                    <div *ngIf="form.get('name').errors?.required"
                                         class="ui-message ui-messages-error ui-corner-all" translate>
-                                       كود الحظيرة مطلوب
+                                       اسم الدواء مطلوب
                                     </div>
                                </div>
-                            <label>كود الحظيرة <span class="required-asterisk"
+                            <label>اسم الدواء <span class="required-asterisk"
                             style="color: red;">*</span></label>
                         </span>
                     </div>
@@ -28,23 +28,50 @@
 
                     <div class="ui-g-12 ui-md-6">
                         <span class="md-inputfield">
-                            <input [(ngModel)]="place.capacity" formControlName="capacity"
-                                id="capacity" name="capacity"  pInputText type="text">
-                            <div *ngIf="(form.get('capacity').invalid&&form.get('capacity').touched)||validateAllForm"
+                            <input [(ngModel)]="medicine.quantity" formControlName="quantity"
+                                id="quantity" name="quantity"  pInputText type="text">
+                            <div *ngIf="(form.get('quantity').invalid&&form.get('quantity').touched)||validateAllForm"
                                 class="ui-message ui-messages-error ui-corner-all">
-                                    <div *ngIf="form.get('capacity').errors?.required"
+                                    <div *ngIf="form.get('quantity').errors?.required"
                                         class="ui-message ui-messages-error ui-corner-all" translate>
-                                          السعة مطلوبة
+                                          الكمية مطلوبة
                                     </div>
                             </div>
-                            <label>السعة<span class="required-asterisk"
+                            <label>الكمية<span class="required-asterisk"
                                 style="color: red;">*</span></label>
                         </span>
                     </div>
 
                     <div class="ui-g-12 ui-md-6">
                         <span class="md-inputfield">
-                            <input [(ngModel)]="place.description" formControlName="description"
+                            <input [(ngModel)]="medicine.cost" formControlName="cost"
+                                id="cost" name="cost"  pInputText type="text">
+                            <div *ngIf="(form.get('cost').invalid&&form.get('cost').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('cost').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         التكلفة مطلوب
+                                    </div>
+                            </div>
+                            <label>التكلفة<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>        
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar formControlName="expiryDate" name="expiryDate" pInputText
+                                [(ngModel)]="medicine.expiryDate"  placeholder="تاريخ الانتهاء"></p-calendar>
+
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="medicine.description" formControlName="description"
                                 id="description" name="description"  pInputText type="text">
                             <div *ngIf="(form.get('description').invalid&&form.get('description').touched)||validateAllForm"
                                 class="ui-message ui-messages-error ui-corner-all">
@@ -82,7 +109,7 @@
 <div class="ui-g-12">
     <div class="card card-w-title">
         <p-table #dt [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"        
-        [value]="places" dataKey="code" selectionMode="single" styleClass="ui-table-cars">
+        [value]="medicines" dataKey="name" selectionMode="single" styleClass="ui-table-cars">
         <ng-template pTemplate="caption">
             <div>
                 <div style="text-align: left;">
@@ -100,12 +127,18 @@
             
             <tr>
                 <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
-                    <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'code'"
+                    <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'name'"
                         class="ui-column-filter" pInputText placeholder="تحتوي على"
                         style="width: 100%; margin-top: 0;" type="text">                   
                     <input (input)="dt.filter($event.target.value, col.field, 'contains')"
-                        *ngSwitchCase="'capacity'" class="ui-column-filter" pInputText
+                        *ngSwitchCase="'quantity'" class="ui-column-filter" pInputText
                         placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'cost'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'expiryDate'" class="ui-column-filter" pInputText
+                        style="width: 100%; margin-top: 0;" type="date">
                     <input (input)="dt.filter($event.target.value, col.field, 'contains')"
                         *ngSwitchCase="'description'" class="ui-column-filter" pInputText
                         placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
@@ -114,8 +147,10 @@
         </ng-template>
         <ng-template let-columns="columns" let-rowData pTemplate="body">
             <tr [pEditableRow]="rowData" [pSelectableRow]="rowData">
-                <td>{{rowData.code}}</td>
-                <td>{{rowData.capacity}}</td>
+                <td>{{rowData.name}}</td>
+                <td>{{rowData.quantity}}</td>
+                <td>{{rowData.cost}}</td>
+                <td>{{rowData.expiryDate}}</td>
                 <td>{{rowData.description}}</td>
             </tr>
         </ng-template>

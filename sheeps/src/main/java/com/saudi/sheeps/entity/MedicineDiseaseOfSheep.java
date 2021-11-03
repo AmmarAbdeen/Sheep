@@ -1,5 +1,6 @@
 package com.saudi.sheeps.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -15,8 +16,10 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -24,7 +27,8 @@ import lombok.Setter;
 @Getter
 @Builder
 
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "MEDICINE_DISEASE_OF_SHEEP")
 public class MedicineDiseaseOfSheep {
 	
@@ -37,21 +41,19 @@ public class MedicineDiseaseOfSheep {
 	@Column(name = "CREATION_Date")
 	private LocalDateTime creationDate;
 
-	@CreationTimestamp
 	@Column(name = "MEDICINE_ONSET")
-	private LocalDateTime medicineOnset;
+	private LocalDate medicineOnset;
 	
-	@CreationTimestamp
 	@Column(name = "END_OF_MEDICINE")
-	private LocalDateTime endOfMedicine;
+	private LocalDate endOfMedicine;
 	
 	@Expose
-	@Column(name = "QUANTITY", unique = true,nullable = false)
-	private String quantity;
+	@Column(name = "QUANTITY",nullable = false)
+	private Double quantity;
 	
 	@Expose
-	@Column(name = "DURATION", unique = true, nullable = false)
-	private Long duration;
+	@Column(name = "DISEASE",nullable = false)
+	private String disease;
 	
 	@Expose
 	@Column(name = "DESCRIPTION",  nullable = false)
@@ -60,10 +62,6 @@ public class MedicineDiseaseOfSheep {
 	@ManyToOne
 	@JoinColumn(name = "SHEEP_ID")
 	private Sheep sheep;
-
-	@ManyToOne
-	@JoinColumn(name = "DISEASE_ID")
-	private Disease disease;
 	
 	@ManyToOne
 	@JoinColumn(name = "MEDICINE_ID")

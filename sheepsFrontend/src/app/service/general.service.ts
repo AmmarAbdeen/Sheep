@@ -29,6 +29,12 @@ saveFeed(body: any) {
   return this.httpClient.post(url, JSON.stringify(body), { headers: header });
 }
 
+saveMedicine(body: any) {
+  const url = environment.BaseUrl + '/medicine/savemedicine';
+  const header = { 'Content-Type': 'application/json; charset=utf-8' };
+  return this.httpClient.post(url, JSON.stringify(body), { headers: header });
+}
+
 saveFeedLookups(body: any) {
   const url = environment.BaseUrl + '/feedlookups/savelookups';
   const header = { 'Content-Type': 'application/json; charset=utf-8' };
@@ -40,6 +46,12 @@ savePlace(body: any) {
   const header = { 'Content-Type': 'application/json; charset=utf-8' };
   return this.httpClient.post(url, JSON.stringify(body), { headers: header });
 }
+saveMovements(body: any) {
+  const url = environment.BaseUrl + '/movement/savemovements';
+  const header = { 'Content-Type': 'application/json; charset=utf-8' };
+  return this.httpClient.post(url, JSON.stringify(body), { headers: header });
+}
+
 
 savePlacesFeed(body: any) {
   const url = environment.BaseUrl + '/places/saveplacesfeed';
@@ -47,16 +59,32 @@ savePlacesFeed(body: any) {
   return this.httpClient.post(url, JSON.stringify(body), { headers: header });
 }
 
+saveMedicineSheep(body: any) {
+  const url = environment.BaseUrl + '/medicine/savemedicinesheep';
+  const header = { 'Content-Type': 'application/json; charset=utf-8' };
+  return this.httpClient.post(url, JSON.stringify(body), { headers: header });
+}
 getSheeps(body: any) {
   const url = environment.BaseUrl + '/getsheeps';
   const header = {'Content-Type': 'application/json; charset=utf-8'};
   return this.httpClient.post(url, JSON.stringify(body), {headers: header});
 }
 
+getAllSheeps() {
+  const url = environment.BaseUrl + '/getallsheeps';
+  return this.httpClient.get(url);
+}
+
 getSheepForEdit(body: any) {
   const url = environment.BaseUrl + '/getsheepbydata';
   const header = {'Content-Type': 'application/json; charset=utf-8'};
   return this.httpClient.post<Sheep>(url, JSON.stringify(body), {headers: header});
+}
+
+getAllValidMedicine(){
+  const url = environment.BaseUrl + '/medicine/getallvalidmedicine';
+  return this.httpClient.get(url);
+
 }
 
 getLambForEdit(body: any) {
@@ -69,6 +97,17 @@ getLambs(body: any) {
   const url = environment.BaseUrl + '/lambs/getlambs';
   const header = {'Content-Type': 'application/json; charset=utf-8'};
   return this.httpClient.post(url, JSON.stringify(body), {headers: header});
+}
+
+getSheepMovements(body :any){
+  const url = environment.BaseUrl + '/movement/getsheepmovements';
+  const header = {'Content-Type': 'application/json; charset=utf-8'};
+  return this.httpClient.post(url, JSON.stringify(body), {headers: header});
+}
+
+getMedicines() {
+  const url = environment.BaseUrl + '/medicine/getmedicines';
+  return this.httpClient.get(url);
 }
 
 getEwes() {

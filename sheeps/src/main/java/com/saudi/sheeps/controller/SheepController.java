@@ -77,5 +77,16 @@ public class SheepController extends BaseController {
 
 		}
 	}
+	@GetMapping(value = "/getallsheeps")
+	public ResponseEntity<?> getAllSheeps() {
+		try {
+
+			return success(sheepService.getAllSheeps());
+
+		} catch (Exception e) {
+			return wrapException(e, "getAllSheeps");
+
+		}
+	}
 
 }

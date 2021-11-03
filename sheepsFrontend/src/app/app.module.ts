@@ -95,6 +95,10 @@ import { FeedLookupsComponent } from './feed-lookups/feed-lookups.component';
 import { StoredFeedComponent } from './stored-feed/stored-feed.component';
 import { PlacesComponent } from './places/places.component';
 import { PlacesFeedComponent } from './places-feed/places-feed.component';
+import { MedicineComponent } from './medicine/medicine.component';
+import { SheepDiseaseMedicineComponent } from './sheep-disease-medicine/sheep-disease-medicine.component';
+import { SheepMovementComponent } from './sheep-movement/sheep-movement.component';
+import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-movement-search.component';
 
 @NgModule({
     imports: [
@@ -190,7 +194,11 @@ import { PlacesFeedComponent } from './places-feed/places-feed.component';
         FeedLookupsComponent,
         StoredFeedComponent,
         PlacesComponent,
-        PlacesFeedComponent
+        PlacesFeedComponent,
+        MedicineComponent,
+        SheepDiseaseMedicineComponent,
+        SheepMovementComponent,
+        SheepMovementSearchComponent
         ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},

@@ -1,0 +1,124 @@
+<div class="ui-g ui-fluid" style="margin-top: 60px;">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <form #searchForm="ngForm" [formGroup]="form" (ngSubmit)="onsubmit()" class="contact-form"
+                  dir="rtl">
+                <p-messages></p-messages>
+                <div class="ui-g form-group">
+                    <h1 style="width: 60%;">بحث عن حركات القطيع</h1>
+                </div>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">home</i></span>
+                            <span class="md-inputfield">
+                                <p-dropdown [options]="sheeps" formControlName="sheep" name="sheep"
+                                    placeholder="الفحل / النعجة"></p-dropdown>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">home</i></span>
+                            <span class="md-inputfield">
+                                <p-dropdown [options]="lambs" formControlName="lamb" name="lamb"
+                                    placeholder="الحمل"></p-dropdown>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar [maxDate]="this.form.get('toDate').value == null ? this.todayDate : this.form.get('toDate').value" formControlName="fromDate"
+                                    name="fromDate" pInputText placeholder="من تاريخ "></p-calendar>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar [minDate]="form.get('fromDate').value" [maxDate]="todayDate" formControlName="toDate"
+                                    name="toDate" pInputText placeholder="الى تاريخ "></p-calendar>
+                            </span>
+                        </div>
+                    </div>               
+                   
+                </div>
+
+                <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
+
+                    <div class=" ui-g-12 ui-md-6">
+                        <button class="ui-button-info" icon="ui-icon-search" [disabled]="isSearchBtnDisabled"
+                            label="بحث " pButton style="margin-top: 20px;margin-bottom:10px"
+                            type="submit"></button>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <button (click)="resetData()" class="ui-button-info" icon="ui-icon-refresh"
+                            label="إعادة ضبط" pButton
+                            style="margin-top: 20px;margin-bottom:10px;background-color: #FBC02D;"
+                            type="button"></button>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="ui-g-12">
+    <div class="card card-w-title">
+        <p-table #dt [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"        
+            [value]="sheepMovements" dataKey="sheep" selectionMode="single" styleClass="ui-table-cars">
+            <ng-template pTemplate="caption">
+                <div>
+                    <div style="text-align: left;">
+                            <label style="margin-left: 50%;"> تاريخ القطيع </label>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template let-columns pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field" >
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+                
+                <tr>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                        <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'date'"
+                            class="ui-column-filter" pInputText placeholder="تحتوي على"
+                            style="width: 100%; margin-top: 0;" type="text">
+                        <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                            *ngSwitchCase="'duration'" class="ui-column-filter" pInputText
+                            placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                        <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                            *ngSwitchCase="'notes'" class="ui-column-filter" pInputText
+                            placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                        <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                            *ngSwitchCase="'description'" class="ui-column-filter" pInputText
+                            placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template let-columns="columns" let-rowData pTemplate="body">
+                <tr [pEditableRow]="rowData" [pSelectableRow]="rowData">
+                    <td>{{rowData.date | date: 'MM/dd/yyyy'}}</td>
+                    <td>{{rowData.duration}}</td>
+                    <td>{{rowData.notes}}</td>
+                    <td>{{rowData.description}}</td>
+                    <td>{{rowData.place.code}}</td>
+                    <td>{{rowData.sheep.code}} , {{rowData.sheep.color}}</td>
+                    <td>{{rowData.lamb.code}} , {{rowData.lamb.color}}</td>
+        
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

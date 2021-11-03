@@ -14,6 +14,11 @@ import { FeedLookupsComponent } from './feed-lookups/feed-lookups.component';
 import { StoredFeedComponent } from './stored-feed/stored-feed.component';
 import { PlacesComponent } from './places/places.component';
 import { PlacesFeedComponent } from './places-feed/places-feed.component';
+import { MedicineComponent } from './medicine/medicine.component';
+import { MedicineDiseaseOfSheep } from './vo/MedicineDiseaseOfSheep';
+import { SheepDiseaseMedicineComponent } from './sheep-disease-medicine/sheep-disease-medicine.component';
+import { SheepMovementComponent } from './sheep-movement/sheep-movement.component';
+import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-movement-search.component';
 
 export const routes: Routes = [
     { path: 'sheepframe', component: AppMainComponent,
@@ -27,7 +32,11 @@ export const routes: Routes = [
             { path: 'feedcomponents/feedlookups', component: FeedLookupsComponent},
             { path: 'feedcomponents/storedfeed', component: StoredFeedComponent},
             { path: 'placecomponents/places', component: PlacesComponent},
-            { path: 'placecomponents/placesfeed', component: PlacesFeedComponent}
+            { path: 'placecomponents/placesfeed', component: PlacesFeedComponent},
+            { path: 'medicinecomponents/medicine', component: MedicineComponent},
+            { path: 'medicinecomponents/sheepmedicine', component:SheepDiseaseMedicineComponent },
+            { path: 'sheepmovement/movement', component:SheepMovementComponent },
+            { path: 'sheepmovement/movementsearch', component:SheepMovementSearchComponent }
         ]
     },
     {path: 'error', component: AppErrorComponent},

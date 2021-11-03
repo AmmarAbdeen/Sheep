@@ -1,0 +1,131 @@
+<div class="ui-g ui-fluid" style="margin-top: 60px;">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <form #addForm="ngForm" [formGroup]="form" (ngSubmit)="onsubmit()" class="contact-form"
+                  dir="rtl">
+                <p-messages></p-messages>
+                <div class="ui-g form-group">
+                    <h1 style="width: 60%;">تسجيل امراض القطيع</h1>
+                </div>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="medicineSheep.disease" formControlName="disease"
+                                id="disease" name="disease"  pInputText type="text">
+                                <div *ngIf="(form.get('disease').invalid&&form.get('disease').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('disease').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                       اسم المرض مطلوب
+                                    </div>
+                               </div>
+                            <label>اسم المرض <span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="medicineSheep.sheep" [options]="sheeps"
+                                formControlName="sheep" id="sheep" name="sheep"
+                                placeholder="النعجة/ الفحل"></p-dropdown>
+                                <div *ngIf="(form.get('sheep').invalid&&form.get('sheep').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('sheep').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                         اختر القطيع المريض
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar formControlName="medicineOnset" name="medicineOnset" pInputText
+                                [(ngModel)]="medicineSheep.medicineOnset"  placeholder="تاريخ بداية المرض"></p-calendar>
+
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar formControlName="endOfMedicine" name="endOfMedicine" pInputText
+                                [(ngModel)]="medicineSheep.endOfMedicine"  placeholder="تاريخ نهاية المرض"></p-calendar>
+
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="medicineSheep.medicine" [options]="medicines"
+                                formControlName="medicine" id="medicine" name="medicine"
+                                placeholder="الدواء"></p-dropdown>
+                                <div *ngIf="(form.get('medicine').invalid&&form.get('medicine').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('medicine').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                         اختر الدواء 
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="medicineSheep.quantity" formControlName="quantity"
+                                id="quantity" name="quantity"  pInputText type="text">
+                            <div *ngIf="(form.get('quantity').invalid&&form.get('quantity').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('quantity').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         كمية الدواء مطلوبة
+                                    </div>
+                            </div>
+                            <label>كمية الدواء<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>        
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="medicineSheep.description" formControlName="description"
+                                id="description" name="description"  pInputText type="text">
+                            <div *ngIf="(form.get('description').invalid&&form.get('description').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('description').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         الوصف مطلوب
+                                    </div>
+                            </div>
+                            <label>الوصف<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>        
+                       
+                </div>
+
+                <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
+
+                    <div class=" ui-g-12 ui-md-6">
+                        <button class="ui-button-info"  icon="ui-icon-add" label="حفظ"
+                            pButton pRipple style="margin-top: 20px;" type="submit"></button>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel"
+                            label="الغاء" pButton pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                            type="button"></button>
+                    </div>                  
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

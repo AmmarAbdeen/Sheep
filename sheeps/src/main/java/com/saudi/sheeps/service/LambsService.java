@@ -180,26 +180,26 @@ public class LambsService {
 	            query.append(" and l.color = :color ");
 	        }
 			if (lambsRequest.getFromBirthDate() != null && !lambsRequest.getFromBirthDate().isEmpty()) {
-				LocalDateTime fromBirthDate = new SimpleDateFormat("yyyy-MM-dd").parse(lambsRequest.getFromBirthDate()).toInstant()
-						.atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDate fromBirthDate = new SimpleDateFormat("yyyy-MM-dd").parse(lambsRequest.getFromBirthDate()).toInstant()
+						.atZone(ZoneId.systemDefault()).toLocalDate();
 	            params.put("fromBirthDate", fromBirthDate);
 	            query.append(" and l.birthDate >= :fromBirthDate ");
 	        }
 			if (lambsRequest.getToBirthDate() != null && !lambsRequest.getToBirthDate().isEmpty()) {
-				LocalDateTime toBirthDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(lambsRequest.getToBirthDate()).toInstant()
-						.atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDate toBirthDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(lambsRequest.getToBirthDate()).toInstant()
+						.atZone(ZoneId.systemDefault()).toLocalDate();
 	            params.put("toBirthDate", toBirthDate);
 	            query.append(" and l.birthDate <= :toBirthDate ");
 	        }
 			if (lambsRequest.getFromMatingDate() != null && !lambsRequest.getFromMatingDate().isEmpty()) {
-				LocalDateTime fromMatingDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(lambsRequest.getFromMatingDate()).toInstant()
-						.atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDate fromMatingDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(lambsRequest.getFromMatingDate()).toInstant()
+						.atZone(ZoneId.systemDefault()).toLocalDate();
 	            params.put("fromMatingDate", fromMatingDate);
 	            query.append(" and l.matingDate >= :fromMatingDate ");
 	        }
 			if (lambsRequest.getToMatingDate() != null && !lambsRequest.getToMatingDate().isEmpty()) {
-				LocalDateTime toMatingDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(lambsRequest.getToMatingDate()).toInstant()
-						.atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDate toMatingDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(lambsRequest.getToMatingDate()).toInstant()
+						.atZone(ZoneId.systemDefault()).toLocalDate();
 	            params.put("toMatingDate", toMatingDate);
 	            query.append(" and l.matingDate <= :toMatingDate ");
 	        }

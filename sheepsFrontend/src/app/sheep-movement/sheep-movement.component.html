@@ -1,0 +1,100 @@
+<div class="ui-g ui-fluid" style="margin-top: 60px;">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <form #addForm="ngForm" [formGroup]="form" (ngSubmit)="onsubmit()" class="contact-form"
+                  dir="rtl">
+                <p-messages></p-messages>
+                <div class="ui-g form-group">
+                    <h1 style="width: 60%;">تسجيل حركات القطيع</h1>
+                </div>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
+                            <span class="md-inputfield">
+                                <p-calendar formControlName="date" name="date" pInputText
+                                [(ngModel)]="sheepMovement.date"  placeholder="التاريخ"></p-calendar>
+
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sheepMovement.place" [options]="places"
+                                formControlName="place" id="place" name="place"
+                                placeholder="المكان"></p-dropdown>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheepMovement.duration" formControlName="duration"
+                                id="duration" name="duration"  pInputText type="text">
+                            <label> المدة</label>
+                        </span>
+                    </div>     
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheepMovement.description" formControlName="description"
+                                id="description" name="description"  pInputText type="text">
+                                <div *ngIf="(form.get('description').invalid&&form.get('description').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('description').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         الوصف مطلوب
+                                    </div>
+                            </div>    
+                            <label> الوصف<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>     
+
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sheepMovement.sheep" [options]="sheeps"
+                                formControlName="sheep" id="sheep" name="sheep"
+                                placeholder="النعجة/ الفحل"></p-dropdown>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sheepMovement.lamb" [options]="lambs"
+                                formControlName="lamb" id="lamb" name="lamb"
+                                placeholder="الحمل"></p-dropdown>
+                        </span>
+                    </div>
+   
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sheepMovement.notes" formControlName="notes"
+                                id="notes" name="notes"  pInputText type="text">
+                            <label>ملحوظات</label>
+                        </span>
+                    </div>        
+                       
+                </div>
+
+                <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
+
+                    <div class=" ui-g-12 ui-md-6">
+                        <button class="ui-button-info"  icon="ui-icon-add" label="حفظ"
+                            pButton pRipple style="margin-top: 20px;" type="submit"></button>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel"
+                            label="الغاء" pButton pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                            type="button"></button>
+                    </div>                  
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

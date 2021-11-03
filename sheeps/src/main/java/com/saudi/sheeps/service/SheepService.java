@@ -166,26 +166,26 @@ public class SheepService {
 	            query.append(" and s.color = :color ");
 	        }
 			if (sheepDTO.getFromBirthDate() != null && !sheepDTO.getFromBirthDate().isEmpty()) {
-				LocalDateTime fromBirthDate = new SimpleDateFormat("yyyy-MM-dd").parse(sheepDTO.getFromBirthDate()).toInstant()
-						.atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDate fromBirthDate = new SimpleDateFormat("yyyy-MM-dd").parse(sheepDTO.getFromBirthDate()).toInstant()
+						.atZone(ZoneId.systemDefault()).toLocalDate();
 	            params.put("fromBirthDate", fromBirthDate);
 	            query.append(" and s.birthDate >= :fromBirthDate ");
 	        }
 			if (sheepDTO.getToBirthDate() != null && !sheepDTO.getToBirthDate().isEmpty()) {
-				LocalDateTime toBirthDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(sheepDTO.getToBirthDate()).toInstant()
-						.atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDate toBirthDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(sheepDTO.getToBirthDate()).toInstant()
+						.atZone(ZoneId.systemDefault()).toLocalDate();
 	            params.put("toBirthDate", toBirthDate);
 	            query.append(" and s.birthDate <= :toBirthDate ");
 	        }
 			if (sheepDTO.getFromArrivalDate() != null && !sheepDTO.getFromArrivalDate().isEmpty()) {
-				LocalDateTime fromArrivalDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(sheepDTO.getFromArrivalDate()).toInstant()
-						.atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDate fromArrivalDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(sheepDTO.getFromArrivalDate()).toInstant()
+						.atZone(ZoneId.systemDefault()).toLocalDate();
 	            params.put("fromArrivalDate", fromArrivalDate);
 	            query.append(" and s.arrivalDate >= :fromArrivalDate ");
 	        }
 			if (sheepDTO.getToArrivalDate() != null && !sheepDTO.getToArrivalDate().isEmpty()) {
-				LocalDateTime toArrivalDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(sheepDTO.getToArrivalDate()).toInstant()
-						.atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDate toArrivalDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(sheepDTO.getToArrivalDate()).toInstant()
+						.atZone(ZoneId.systemDefault()).toLocalDate();
 	            params.put("toArrivalDate", toArrivalDate);
 	            query.append(" and s.arrivalDate <= :toArrivalDate ");
 	        }
@@ -226,6 +226,11 @@ public class SheepService {
 
 	public String getEwes() {
 		List<Sheep> sheeps = sheepDAO.findAllByType("ewe");
+		return new Gson().toJson(mapToDTOList(sheeps));
+	}
+	
+	public String getAllSheeps() {
+		List<Sheep> sheeps = sheepDAO.findAll();
 		return new Gson().toJson(mapToDTOList(sheeps));
 	}
 	

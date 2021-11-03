@@ -1,5 +1,6 @@
 package com.saudi.sheeps.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -13,10 +14,13 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.google.gson.annotations.Expose;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -24,7 +28,8 @@ import lombok.Setter;
 @Getter
 @Builder
 
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "SHEEP_MOVEMENT")
 public class SheepMovement {
 	
@@ -37,16 +42,15 @@ public class SheepMovement {
 	@Column(name = "CREATION_Date")
 	private LocalDateTime creationDate;
 	
-	@CreationTimestamp
-	@Column(name = "MOVEMENT_Date")
-	private LocalDateTime movementDate;
+	@Column(name = "Date")
+	private LocalDate date;
 	
 	@Expose
-	@Column(name = "DURATION", unique = true,nullable = false)
+	@Column(name = "DURATION",nullable = false)
 	private String duration;
 	
 	@Expose
-	@Column(name = "NOTES", unique = true,nullable = false)
+	@Column(name = "NOTES")
 	private String notes;
 
 	@Expose
