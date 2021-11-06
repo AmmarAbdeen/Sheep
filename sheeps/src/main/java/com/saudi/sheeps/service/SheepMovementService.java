@@ -62,9 +62,56 @@ public class SheepMovementService {
 				throw new BusinessException("SheepMovement date is required");
 			}
 			if (request.getSheep() == null && request.getLamb() == null) {
-				throw new BusinessException("sheep or lamb at least one required required");
+				throw new BusinessException("sheep or lamb mustn't be null");
 			}
-			sheepMovementDAO.save(mapToEntity(request));
+			if (request.getSheep() != null && request.getLamb() != null) {
+				throw new BusinessException("sheep or lamb must be null");
+			}
+			if (request.getSheep() != null) {
+				SheepMovement sheepMovementInSpecificPlace = sheepMovementDAO.findBySheepIdAndPlacesIdAndDateBetween(
+						request.getSheep().getId(), request.getPlace().getId(),
+						new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate()).toInstant()
+								.atZone(ZoneId.systemDefault()).toLocalDate().minusDays(3),
+						new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate()).toInstant()
+								.atZone(ZoneId.systemDefault()).toLocalDate());
+				if (sheepMovementInSpecificPlace != null) {
+					throw new BusinessException("this movement of sheep is already added");
+				} else {
+					SheepMovement sheepMovement = sheepMovementDAO
+							.findFirstBySheepIdOrderByDateDesc(request.getSheep().getId());
+					if (sheepMovement != null) {
+						sheepMovement.setOutDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate()).toInstant()
+								.atZone(ZoneId.systemDefault()).toLocalDate());
+						sheepMovementDAO.save(mapToEntity(request));
+						sheepMovementDAO.save(sheepMovement);
+					} else {
+						sheepMovementDAO.save(mapToEntity(request));
+					}
+				}
+			}
+			if (request.getLamb() != null) {
+				SheepMovement lambMovementInSpecificPlace = sheepMovementDAO.findByLambsIdAndPlacesIdAndDateBetween(
+						request.getLamb().getId(), request.getPlace().getId(),
+						new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate()).toInstant()
+								.atZone(ZoneId.systemDefault()).toLocalDate().minusDays(2),
+						new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate()).toInstant()
+								.atZone(ZoneId.systemDefault()).toLocalDate());
+				if (lambMovementInSpecificPlace != null) {
+					throw new BusinessException("this movement of lamb is already added");
+				} else {
+					SheepMovement lambMovement = sheepMovementDAO
+							.findFirstByLambsIdOrderByDateDesc(request.getLamb().getId());
+					if (lambMovement != null) {
+						lambMovement.setOutDate(new SimpleDateFormat("yyyy-MM-dd").parse(request.getDate()).toInstant()
+								.atZone(ZoneId.systemDefault()).toLocalDate());
+						sheepMovementDAO.save(mapToEntity(request));
+						sheepMovementDAO.save(lambMovement);
+					} else {
+						sheepMovementDAO.save(mapToEntity(request));
+					}
+				}
+			}
+
 			return request;
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage(), e);
@@ -79,56 +126,60 @@ public class SheepMovementService {
 			if (movementDTO.getFromDate() != null && !movementDTO.getFromDate().isEmpty()) {
 				LocalDate fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(movementDTO.getFromDate()).toInstant()
 						.atZone(ZoneId.systemDefault()).toLocalDate();
-	            params.put("fromDate", fromDate);
-	            query.append(" and s.date >= :fromDate ");
-	        }
+				params.put("fromDate", fromDate);
+				query.append(" and s.date >= :fromDate ");
+			}
 			if (movementDTO.getToDate() != null && !movementDTO.getToDate().isEmpty()) {
 				LocalDate toDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(movementDTO.getToDate()).toInstant()
 						.atZone(ZoneId.systemDefault()).toLocalDate();
-	            params.put("toDate", toDate);
-	            query.append(" and s.date <= :toDate ");
-	        }
-			if (movementDTO.getSheep() != null ) {
-				if(movementDTO.getSheep().getId() != null) {
-	            params.put("sheepId", movementDTO.getSheep().getId());
-	            query.append(" and s.sheep.id = :sheepId");
-	        }}
-			if (movementDTO.getLamb() != null ) {
-				if(movementDTO.getLamb().getId() != null) {
-	            params.put("lambId", movementDTO.getLamb().getId());
-	            query.append(" and s.lamb.id = :lambId");
-	        }}
-            List<SheepMovement> sheepsMovement = getSheepsMovement(em, query.toString(),params);
+				params.put("toDate", toDate);
+				query.append(" and s.date <= :toDate ");
+			}
+			if (movementDTO.getSheep() != null) {
+				if (movementDTO.getSheep().getId() != null) {
+					params.put("sheepId", movementDTO.getSheep().getId());
+					query.append(" and s.sheep.id = :sheepId");
+				}
+			}
+			if (movementDTO.getLamb() != null) {
+				if (movementDTO.getLamb().getId() != null) {
+					params.put("lambId", movementDTO.getLamb().getId());
+					query.append(" and s.lamb.id = :lambId");
+				}
+			}
+			List<SheepMovement> sheepsMovement = getSheepsMovement(em, query.toString(), params);
 			return new Gson().toJson(mapToDTOList(sheepsMovement));
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage(), e);
 		}
 
 	}
-	
-	private List<SheepMovement> getSheepsMovement(EntityManager em, String q,Map<String, Object> params) {
+
+	private List<SheepMovement> getSheepsMovement(EntityManager em, String q, Map<String, Object> params) {
 		TypedQuery<SheepMovement> query = em.createQuery(q, SheepMovement.class);
 		if (params != null) {
-            for (Entry<String, Object> entry : params.entrySet()) {
-                query.setParameter(entry.getKey(), entry.getValue());
-            }
-        }
+			for (Entry<String, Object> entry : params.entrySet()) {
+				query.setParameter(entry.getKey(), entry.getValue());
+			}
+		}
 		return query.getResultList();
 	}
-	
+
 	public SheepMovementDTO mapToDTO(SheepMovement sheepMovement) throws ParseException {
 		SheepMovementDTO sheepMovementDTO = new SheepMovementDTO();
 		sheepMovementDTO.setDescription(sheepMovement.getDescription());
-		sheepMovementDTO.setDuration(sheepMovement.getDuration());
 		sheepMovementDTO.setNotes(sheepMovement.getNotes());
 		sheepMovementDTO.setDate(sheepMovement.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-		if(sheepMovement.getLambs() != null) {
+		if (sheepMovement.getOutDate() != null) {
+			sheepMovementDTO.setOutDate(sheepMovement.getOutDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		}
+		if (sheepMovement.getLambs() != null) {
 			sheepMovementDTO.setLamb(lambsService.mapToDTO(sheepMovement.getLambs()));
 		}
-		if(sheepMovement.getSheep() !=null) {
+		if (sheepMovement.getSheep() != null) {
 			sheepMovementDTO.setSheep(sheepService.mapToDTO(sheepMovement.getSheep()));
 		}
-		if(sheepMovement.getPlaces() !=null) {
+		if (sheepMovement.getPlaces() != null) {
 			sheepMovementDTO.setPlace(placesService.mapToDTO(sheepMovement.getPlaces()));
 		}
 		return sheepMovementDTO;
@@ -137,7 +188,6 @@ public class SheepMovementService {
 	public SheepMovement mapToEntity(SheepMovementDTO sheepMovementDTO) throws ParseException {
 		SheepMovement sheepMovement = new SheepMovement();
 		sheepMovement.setDescription(sheepMovementDTO.getDescription());
-		sheepMovement.setDuration(sheepMovementDTO.getDuration());
 		sheepMovement.setNotes(sheepMovementDTO.getNotes());
 		sheepMovement.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(sheepMovementDTO.getDate()).toInstant()
 				.atZone(ZoneId.systemDefault()).toLocalDate());

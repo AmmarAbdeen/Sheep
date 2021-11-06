@@ -34,7 +34,7 @@
                             <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
                             <span class="md-inputfield">
                                 <p-calendar [maxDate]="this.form.get('toDate').value == null ? this.todayDate : this.form.get('toDate').value" formControlName="fromDate"
-                                    name="fromDate" pInputText placeholder="من تاريخ "></p-calendar>
+                                    name="fromDate" pInputText placeholder=" من تاريخ دخول"></p-calendar>
                             </span>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
                             <span class="md-inputfield">
                                 <p-calendar [minDate]="form.get('fromDate').value" [maxDate]="todayDate" formControlName="toDate"
-                                    name="toDate" pInputText placeholder="الى تاريخ "></p-calendar>
+                                    name="toDate" pInputText placeholder="الى تاريخ دخول "></p-calendar>
                             </span>
                         </div>
                     </div>               
@@ -94,10 +94,10 @@
                     <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
                         <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'date'"
                             class="ui-column-filter" pInputText placeholder="تحتوي على"
-                            style="width: 100%; margin-top: 0;" type="text">
+                            style="width: 100%; margin-top: 0;" type="date">
                         <input (input)="dt.filter($event.target.value, col.field, 'contains')"
-                            *ngSwitchCase="'duration'" class="ui-column-filter" pInputText
-                            placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                            *ngSwitchCase="'outDate'" class="ui-column-filter" pInputText
+                            style="width: 100%; margin-top: 0;" type="date">
                         <input (input)="dt.filter($event.target.value, col.field, 'contains')"
                             *ngSwitchCase="'notes'" class="ui-column-filter" pInputText
                             placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
@@ -110,12 +110,12 @@
             <ng-template let-columns="columns" let-rowData pTemplate="body">
                 <tr [pEditableRow]="rowData" [pSelectableRow]="rowData">
                     <td>{{rowData.date | date: 'MM/dd/yyyy'}}</td>
-                    <td>{{rowData.duration}}</td>
+                    <td>{{rowData.outDate | date: 'MM/dd/yyyy'}}</td>
                     <td>{{rowData.notes}}</td>
                     <td>{{rowData.description}}</td>
-                    <td>{{rowData.place.code}}</td>
-                    <td>{{rowData.sheep.code}} , {{rowData.sheep.color}}</td>
-                    <td>{{rowData.lamb.code}} , {{rowData.lamb.color}}</td>
+                    <td *ngIf="rowData.place != null ">{{rowData.place.code}}</td>
+                    <td *ngIf="rowData.sheep != null ">{{rowData.sheep.code}} , {{rowData.sheep.color}}</td>
+                    <td *ngIf="rowData.lamb != null ">{{rowData.lamb.code}} , {{rowData.lamb.color}}</td>
         
                 </tr>
             </ng-template>

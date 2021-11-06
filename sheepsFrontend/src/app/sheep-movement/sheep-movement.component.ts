@@ -17,7 +17,6 @@ export class SheepMovementComponent implements OnInit {
     description: new FormControl('', [Validators.required]),
     notes: new FormControl(),
     date: new FormControl('', [Validators.required]),
-    duration: new FormControl(),
     sheep: new FormControl(),
     place: new FormControl(),
     lamb: new FormControl()
@@ -57,7 +56,6 @@ validateAllForm = false;
       description: this.sheepMovement.description,
       date: this.datePipe.transform(this.sheepMovement.date, 'yyyy-MM-dd 00:00'),
       notes: this.sheepMovement.notes,
-      duration: this.sheepMovement.duration,
       place: this.sheepMovement.place,
       sheep: this.sheepMovement.sheep,
       lamb: this.sheepMovement.lamb

@@ -45,9 +45,8 @@ public class SheepMovement {
 	@Column(name = "Date")
 	private LocalDate date;
 	
-	@Expose
-	@Column(name = "DURATION",nullable = false)
-	private String duration;
+	@Column(name = "OUT_Date")
+	private LocalDate outDate;
 	
 	@Expose
 	@Column(name = "NOTES")

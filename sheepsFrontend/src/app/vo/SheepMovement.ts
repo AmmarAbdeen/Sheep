@@ -5,8 +5,8 @@ import { Sheep } from "./Sheep";
 export class SheepMovement {
     id: number;
     date: any;
+    outDate: any;
     description : string;
-    duration : string;
     sheep : Sheep;
     lamb : Lamb;
     notes: string;

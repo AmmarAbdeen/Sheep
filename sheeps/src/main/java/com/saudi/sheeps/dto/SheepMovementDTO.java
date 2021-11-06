@@ -18,12 +18,12 @@ public class SheepMovementDTO extends BaseDTO {
 	
 	private String date;
 	
+	private String outDate;
+	
 	private String fromDate;
 	
 	private String toDate;
-		
-	private String duration;
-	
+			
 	private String notes;
 	
 	private String description;

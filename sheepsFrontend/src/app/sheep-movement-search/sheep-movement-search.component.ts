@@ -35,8 +35,8 @@ private datePipe: DatePipe) {
     this.getLambs();
     this.getSheeps();
     this.cols = [
-      { field: 'date', header: 'التاريخ' },
-      { field: 'duration', header: 'المدة' },
+      { field: 'date', header: 'تاريخ الدخول' },
+      { field: 'outDate', header: 'تاريخ الخروج' },
       { field: 'notes', header: 'الملحوظات' },  
       { field: 'description', header: 'الوصف' },  
       { field: 'place', header: 'المكان' },  
