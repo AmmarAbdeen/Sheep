@@ -1,5 +1,7 @@
 package com.saudi.sheeps.controller;
 
+import java.util.Base64;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
@@ -10,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.Gson;
+import com.saudi.sheeps.dto.BaseDTO;
 import com.saudi.sheeps.dto.SheepResponse;
 import com.saudi.sheeps.exception.ExternalSystemException;
 
@@ -53,6 +57,19 @@ public abstract class BaseController {
 		}
 		return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON)
 				.body(new SheepResponse("1", e.getMessage()).toString());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends BaseDTO> T getDecodedrequest(BaseDTO encodedRequest) {
+
+		return (T) new Gson().fromJson(decodeBase64(encodedRequest.getEncryptedData()),
+				encodedRequest.getEncryptedDataType());
+
+	}
+	
+	public static String decodeBase64(String body) {
+		byte[] decodedBytes = Base64.getDecoder().decode(body);
+		return new String(decodedBytes);
 	}
 	
 

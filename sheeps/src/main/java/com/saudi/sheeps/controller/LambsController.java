@@ -4,14 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.saudi.sheeps.dto.LambsDTO;
 import com.saudi.sheeps.dto.SheepDTO;
+import com.saudi.sheeps.service.JWTService;
 import com.saudi.sheeps.service.LambsService;
 
+import io.jsonwebtoken.Claims;
 import lombok.extern.apachecommons.CommonsLog;
 
 @RestController
@@ -21,12 +24,15 @@ public class LambsController extends BaseController{
 	
 	@Autowired
 	private LambsService lambsService;
+	@Autowired
+	protected JWTService jwtservice;
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/addlamb")
-	public ResponseEntity<?> addLamb(@RequestBody LambsDTO lambsRequest){
+	public ResponseEntity<?> addLamb(@RequestHeader("session-token") String sessionToken,@RequestBody LambsDTO lambsRequest){
 		try {
 			log.info("Enter addLamb API...with request :" + lambsRequest.toString());
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
 			LambsDTO LambsResponse;
 			if(lambsRequest.getId() !=null && lambsRequest.getId() !=0) {
 		        LambsResponse =lambsService.updateLamb(lambsRequest);
@@ -43,9 +49,9 @@ public class LambsController extends BaseController{
 	}
 	
 	@PostMapping(value = "/getlambs")
-	public ResponseEntity<?> searchLambs(@RequestBody LambsDTO lambDTO ) {
+	public ResponseEntity<?> searchLambs(@RequestHeader("session-token") String sessionToken,@RequestBody LambsDTO lambDTO ) {
 		try {
-
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
 			return success(lambsService.lambsSearch(lambDTO));
 
 		} catch (Exception e) {
@@ -55,9 +61,9 @@ public class LambsController extends BaseController{
 	}
 	
 	@PostMapping(value = "/getlambbydata")
-	public ResponseEntity<?> getLambByData(@RequestBody LambsDTO lambDTO ) {
+	public ResponseEntity<?> getLambByData(@RequestHeader("session-token") String sessionToken,@RequestBody LambsDTO lambDTO ) {
 		try {
-
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
 			return success(lambsService.getLambBySpecificData(lambDTO));
 
 		} catch (Exception e) {

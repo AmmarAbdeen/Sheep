@@ -13,8 +13,10 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -22,7 +24,8 @@ import lombok.Setter;
 @Getter
 @Builder
 
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "USER")
 public class User {
 	@Expose
@@ -35,28 +38,28 @@ public class User {
 	private LocalDateTime creationDate;
 	
 	@Expose
-	@Column(name = "FULL_NAME", unique = true,nullable = false)
-	private Long fullName;
+	@Column(name = "FULL_NAME",nullable = false)
+	private String fullName;
 	
 	@Expose
-	@Column(name = "EMAIL", unique = true,nullable = false)
-	private Long email;
+	@Column(name = "EMAIL",nullable = false)
+	private String email;
 	
 	@Expose
-	@Column(name = "USER_NAME", unique = true,nullable = false)
-	private Long userName;
+	@Column(name = "USER_NAME",nullable = false)
+	private String userName;
 	
 	@Expose
-	@Column(name = "PASSWORD", unique = true,nullable = false)
-	private Long password;
+	@Column(name = "PASSWORD",nullable = false)
+	private String password;
 	
 	@Expose
-	@Column(name = "MOBILE_NUMBER", unique = true,nullable = false)
-	private Long mobileNumber;
+	@Column(name = "MOBILE_NUMBER",nullable = false)
+	private String mobileNumber;
 	
 	@Expose
 	@Column(name = "NATIONAL_ID", unique = true,nullable = false)
-	private Long nationalId;
+	private String nationalId;
 
 
 }

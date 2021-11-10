@@ -5,13 +5,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dto.BaseDTO;
 import com.saudi.sheeps.dto.SheepDTO;
+import com.saudi.sheeps.dto.UserDTO;
+import com.saudi.sheeps.service.JWTService;
 import com.saudi.sheeps.service.SheepService;
+import com.saudi.sheeps.service.UserService;
 
+import io.jsonwebtoken.Claims;
 import lombok.extern.apachecommons.CommonsLog;
 
 @RestController
@@ -21,12 +27,31 @@ public class SheepController extends BaseController {
 	
 	@Autowired
 	private SheepService sheepService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	protected JWTService jwtservice;
+	
+	@PostMapping(value = "/login")
+	public ResponseEntity<?> login(@RequestBody BaseDTO encodedRequest) {
+		try {
+			log.info("Enter Login API...with request :" + encodedRequest.toString());
+			encodedRequest.setEncryptedDataType(UserDTO.class);
+			UserDTO user = getDecodedrequest(encodedRequest);
+			return success(userService.login(user));
+
+		} catch (Exception e) {
+			return wrapException(e, "merchantLogin");
+
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/addsheep")
-	public ResponseEntity<?> addSheep(@RequestBody SheepDTO sheepRequest){
+	public ResponseEntity<?> addSheep(@RequestHeader("session-token") String sessionToken,@RequestBody SheepDTO sheepRequest){
 		try {
 			log.info("Enter addSheep API...with request :" + sheepRequest.toString());
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
 			SheepDTO sheepResponse;
 			if(sheepRequest.getId() !=null && sheepRequest.getId() !=0) {
 				 sheepResponse =sheepService.updateSheep(sheepRequest);
@@ -43,9 +68,9 @@ public class SheepController extends BaseController {
 	
 	
 	@PostMapping(value = "/getsheeps")
-	public ResponseEntity<?> searchSheeps(@RequestBody SheepDTO sheepRequest ) {
+	public ResponseEntity<?> searchSheeps(@RequestHeader("session-token") String sessionToken,@RequestBody SheepDTO sheepRequest ) {
 		try {
-
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
 			return success(sheepService.sheepsSearch(sheepRequest));
 
 		} catch (Exception e) {
@@ -55,9 +80,9 @@ public class SheepController extends BaseController {
 	}
 	
 	@PostMapping(value = "/getsheepbydata")
-	public ResponseEntity<?> getSheepByData(@RequestBody SheepDTO sheepRequest ) {
+	public ResponseEntity<?> getSheepByData(@RequestHeader("session-token") String sessionToken,@RequestBody SheepDTO sheepRequest ) {
 		try {
-
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
 			return success(sheepService.getSheepBySpecificData(sheepRequest));
 
 		} catch (Exception e) {
@@ -67,9 +92,9 @@ public class SheepController extends BaseController {
 	}
 	
 	@GetMapping(value = "/getewes")
-	public ResponseEntity<?> getAllEwes() {
+	public ResponseEntity<?> getAllEwes(@RequestHeader("session-token") String sessionToken) {
 		try {
-
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
 			return success(sheepService.getEwes());
 
 		} catch (Exception e) {
@@ -78,9 +103,9 @@ public class SheepController extends BaseController {
 		}
 	}
 	@GetMapping(value = "/getallsheeps")
-	public ResponseEntity<?> getAllSheeps() {
+	public ResponseEntity<?> getAllSheeps(@RequestHeader("session-token") String sessionToken) {
 		try {
-
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
 			return success(sheepService.getAllSheeps());
 
 		} catch (Exception e) {
