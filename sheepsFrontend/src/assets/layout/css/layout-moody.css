@@ -1046,7 +1046,7 @@
   box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
 }
 .login-body .login-panel .login-panel-header {
-  background-color: #607D8B;
+  background-color: white;
   text-align: center;
   padding: 8px 14px;
 }
@@ -1055,7 +1055,7 @@
   width: 50px;
 }
 .login-body .login-panel .login-panel-content {
-  padding: 50px 100px;
+  padding: 10px 100px;
 }
 .login-body .login-panel .login-panel-content h1 {
   font-size: 16px;

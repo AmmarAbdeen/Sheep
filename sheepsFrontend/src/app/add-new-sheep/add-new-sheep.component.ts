@@ -124,7 +124,7 @@ export class AddNewSheepComponent implements OnInit {
 }
 
   cancel() {
-    this.router.navigate(['/sheepframe/dashboard']);
+    this.router.navigate(['/sheepframe/home/dashboard']);
   }
 
   statusLookups(){

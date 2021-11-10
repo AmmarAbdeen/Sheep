@@ -19,10 +19,10 @@
         <ul class="topbar-menu fadeInDown" [ngClass]="{'topbar-menu-active': app.topbarMenuActive}" (click)="app.onTopbarMenuClick($event)">
             <li #profile class="profile-item" [ngClass]="{'active-topmenuitem': app.activeTopbarItem === profile}" (click)="app.onTopbarRootItemClick($event, profile)">
                 <a href="#">
-                    <span class="profile-image-wrapper">
+                    <!-- <span class="profile-image-wrapper">
                         <img src="assets/layout/images/avatar.png"/>
-                    </span>
-                    <span class="topbar-item-name profile-name">Wendy Lorina</span>
+                    </span> -->
+                    <span class="topbar-item-name profile-name">{{user.userName}}</span>
                 </a>
                 <ul class="fadeInDown">
                     <li role="menuitem">
@@ -44,9 +44,9 @@
                         </a>
                     </li>
                     <li role="menuitem">
-                        <a href="#">
-                            <i class="material-icons">exit_to_app</i>
-                            <span>Logout</span>
+                        <a (click)="this.generalService.logout()">
+                            <i class="material-icons">power_settings_new</i>
+                            <span>تسجيل الخروج</span>
                         </a>
                     </li>
                 </ul>

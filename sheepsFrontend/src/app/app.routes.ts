@@ -19,24 +19,27 @@ import { MedicineDiseaseOfSheep } from './vo/MedicineDiseaseOfSheep';
 import { SheepDiseaseMedicineComponent } from './sheep-disease-medicine/sheep-disease-medicine.component';
 import { SheepMovementComponent } from './sheep-movement/sheep-movement.component';
 import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-movement-search.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
-    { path: 'sheepframe', component: AppMainComponent,
+    {path: 'sheepframe', component: LoginComponent},
+    { path: 'sheepframe/home', component: AppMainComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent },
-            { path: 'sheepcomponents/addNewSheep', component: AddNewSheepComponent},
-            { path: 'lambcomponents/addNewLamb', component: AddNewLambComponent},
-            { path: 'lambcomponents/managelamb', component: LambManagementComponent},
-            { path: 'sheepcomponents/managesheep', component: SheepManagementComponent},  
-            { path: 'feedcomponents/savefeed', component: SaveFeedComponent},
-            { path: 'feedcomponents/feedlookups', component: FeedLookupsComponent},
-            { path: 'feedcomponents/storedfeed', component: StoredFeedComponent},
-            { path: 'placecomponents/places', component: PlacesComponent},
-            { path: 'placecomponents/placesfeed', component: PlacesFeedComponent},
-            { path: 'medicinecomponents/medicine', component: MedicineComponent},
-            { path: 'medicinecomponents/sheepmedicine', component:SheepDiseaseMedicineComponent },
-            { path: 'sheepmovement/movement', component:SheepMovementComponent },
-            { path: 'sheepmovement/movementsearch', component:SheepMovementSearchComponent }
+            { path: 'sheepcomponents/addNewSheep', component: AddNewSheepComponent, canActivate: [AuthGuard]},
+            { path: 'lambcomponents/addNewLamb', component: AddNewLambComponent, canActivate: [AuthGuard]},
+            { path: 'lambcomponents/managelamb', component: LambManagementComponent, canActivate: [AuthGuard]},
+            { path: 'sheepcomponents/managesheep', component: SheepManagementComponent, canActivate: [AuthGuard]},  
+            { path: 'feedcomponents/savefeed', component: SaveFeedComponent, canActivate: [AuthGuard]},
+            { path: 'feedcomponents/feedlookups', component: FeedLookupsComponent, canActivate: [AuthGuard]},
+            { path: 'feedcomponents/storedfeed', component: StoredFeedComponent, canActivate: [AuthGuard]},
+            { path: 'placecomponents/places', component: PlacesComponent, canActivate: [AuthGuard]},
+            { path: 'placecomponents/placesfeed', component: PlacesFeedComponent, canActivate: [AuthGuard]},
+            { path: 'medicinecomponents/medicine', component: MedicineComponent, canActivate: [AuthGuard]},
+            { path: 'medicinecomponents/sheepmedicine', component:SheepDiseaseMedicineComponent, canActivate: [AuthGuard] },
+            { path: 'sheepmovement/movement', component:SheepMovementComponent, canActivate: [AuthGuard] },
+            { path: 'sheepmovement/movementsearch', component:SheepMovementSearchComponent , canActivate: [AuthGuard]}
         ]
     },
     {path: 'error', component: AppErrorComponent},

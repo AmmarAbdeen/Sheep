@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AppMainComponent} from './app.main.component';
+import { GeneralService } from './service/general.service';
 
 @Component({
     selector: 'app-topbar',
@@ -7,6 +8,13 @@ import {AppMainComponent} from './app.main.component';
 })
 export class AppTopBarComponent {
 
-    constructor(public app: AppMainComponent) {}
+    user: any;
+
+    constructor(public app: AppMainComponent,private generalService: GeneralService) {}
+
+    ngOnInit() {
+
+        this.user = JSON.parse(localStorage.getItem('user'));
+    }
 
 }

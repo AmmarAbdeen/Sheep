@@ -1,0 +1,63 @@
+<div class="login-body">
+    <div class="login-panel ui-fluid">
+        <div class="login-panel-header">
+            <img src="assets/layout/images/logo1.jpg" style="width: 200px;height: 150px">
+        </div>
+        <div class="login-panel-content">
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <h1>تسجيل الدخول</h1>
+                </div>
+                <div *ngIf="errormsg" class="ui-g-12" dir="rtl">
+                    <p-message severity="error" text="هناك خطأ من فضلك تأكد من الايميل اوالرقم السري"></p-message>
+                </div>
+                <form #loginForm="ngForm" (ngSubmit)="onsubmit()" [formGroup]="form" class="contact-form">
+                    <div class="ui-g-12">
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">account_circle</i></span>
+                            <span class="md-inputfield">
+                                <input formControlName="username" name="username" ngModel pInputText type="text">
+                                <div *ngIf="(form.get('username').invalid&&form.get('username').touched)||validateAllForm"
+                                    class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('username').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                          لابد من ادخال اسم المستخدم
+                                    </div>
+                                </div>
+                                <label translate>اسم المستخدم</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="material-icons">lock</i></span>
+                            <span class="md-inputfield">
+                                <input formControlName="password" name="password" ngModel pInputText type="password">
+                                <div *ngIf="(form.get('password').invalid&&form.get('password').touched)||validateAllForm"
+                                    class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('password').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        لابد من ادخال الرقم السري
+                                    </div>
+                                </div>
+
+                                <label>الرقم السري</label>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="ui-g-12">
+                        <button icon="ui-icon-person" label="تسجيل الدخول" pButton type="submit"
+                            [disabled]="isLoginBtnDisabled"></button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

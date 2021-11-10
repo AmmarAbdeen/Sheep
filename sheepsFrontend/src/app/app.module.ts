@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LocationStrategy, HashLocationStrategy, PathLocationStrategy, DatePipe} from '@angular/common';
@@ -99,6 +99,9 @@ import { MedicineComponent } from './medicine/medicine.component';
 import { SheepDiseaseMedicineComponent } from './sheep-disease-medicine/sheep-disease-medicine.component';
 import { SheepMovementComponent } from './sheep-movement/sheep-movement.component';
 import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-movement-search.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 @NgModule({
     imports: [
@@ -198,11 +201,13 @@ import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-move
         MedicineComponent,
         SheepDiseaseMedicineComponent,
         SheepMovementComponent,
-        SheepMovementSearchComponent
+        SheepMovementSearchComponent,
+        LoginComponent
         ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},
-         BreadcrumbService, MenuService,DatePipe,MessageService
+        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true},
+         BreadcrumbService, MenuService,DatePipe,MessageService,AuthGuard
     ],
     bootstrap: [AppComponent]
 })
