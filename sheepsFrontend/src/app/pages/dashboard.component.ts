@@ -1,10 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {BreadcrumbService} from '../breadcrumb.service';
-import {SelectItem} from 'primeng/primeng';
-import {MenuItem} from 'primeng/primeng';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
 
 @Component({
     templateUrl: './dashboard.component.html'

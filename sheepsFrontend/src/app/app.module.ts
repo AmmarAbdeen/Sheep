@@ -101,7 +101,7 @@ import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-move
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { ChartsModule } from 'ng2-charts';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
     imports: [
@@ -118,7 +118,7 @@ import { ChartsModule } from 'ng2-charts';
         CalendarModule,
         CardModule,
         CarouselModule,
-        ChartsModule,
+        ChartModule,
         CheckboxModule,
         ChipsModule,
         CodeHighlighterModule,
