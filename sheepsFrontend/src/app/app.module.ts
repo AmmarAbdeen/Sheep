@@ -13,7 +13,6 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
-import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from 'primeng/chips';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
@@ -102,6 +101,7 @@ import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-move
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
     imports: [
@@ -118,7 +118,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
         CalendarModule,
         CardModule,
         CarouselModule,
-        ChartModule,
+        ChartsModule,
         CheckboxModule,
         ChipsModule,
         CodeHighlighterModule,
