@@ -102,6 +102,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { ChartModule } from 'primeng/chart';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
     imports: [
@@ -202,7 +203,8 @@ import { ChartModule } from 'primeng/chart';
         SheepDiseaseMedicineComponent,
         SheepMovementComponent,
         SheepMovementSearchComponent,
-        LoginComponent
+        LoginComponent,
+        DashboardComponent
         ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},

@@ -4,7 +4,6 @@ import { AppMainComponent } from './app.main.component';
 import { AppNotfoundComponent } from './pages/app.notfound.component';
 import { AppErrorComponent } from './pages/app.error.component';
 import { AppAccessdeniedComponent } from './pages/app.accessdenied.component';
-import { DashboardComponent } from './pages/dashboard.component';
 import { AddNewSheepComponent } from './add-new-sheep/add-new-sheep.component';
 import { SheepManagementComponent } from './sheep-management/sheep-management.component';
 import { AddNewLambComponent } from './add-new-lamb/add-new-lamb.component';
@@ -21,6 +20,7 @@ import { SheepMovementComponent } from './sheep-movement/sheep-movement.componen
 import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-movement-search.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
     {path: 'sheepframe', component: LoginComponent},
