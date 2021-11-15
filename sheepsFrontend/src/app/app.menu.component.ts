@@ -13,7 +13,7 @@ export class AppMenuComponent implements OnInit {
 
     ngOnInit() {
         this.model = [
-            {label: 'لوحة القيادة', icon: 'dashboard', routerLink: ['/sheepframe/home/ashboard']},
+            {label: 'لوحة القيادة', icon: 'dashboard', routerLink: ['/sheepframe/home/dashboard']},
             {
                 label: ' القائمة الرئيسية للقطيع', icon: 'list', badge: '2', routerLink: ['/sheepframe/home/sheepcomponents'], badgeStyleClass: 'orange-badge',
                 items: [
