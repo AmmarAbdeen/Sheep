@@ -10,8 +10,7 @@ import com.google.gson.Gson;
 import com.saudi.sheeps.dao.LambsDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dao.StoredFeedDAO;
-import com.saudi.sheeps.dto.Dashboard;
-import com.saudi.sheeps.dto.DashboardDTO;
+import com.saudi.sheeps.dto.LabelsDataMapper;
 import com.saudi.sheeps.exception.BusinessException;
 
 import lombok.extern.apachecommons.CommonsLog;
@@ -29,16 +28,8 @@ public class DashbordService {
 
 	public String getAllSheepGroupByType() throws BusinessException {
 		try {
-
-			List<Dashboard> sheepsGroupByType = sheepDAO.getAllSheepsMaleAndFemale();
-			List<DashboardDTO> sheepsGroupByTypeResponse = new ArrayList<>();
-			for (Dashboard sheepType : sheepsGroupByType) {
-				DashboardDTO lambTypeResponse = new DashboardDTO();
-				lambTypeResponse.setType(sheepType.getType());
-				lambTypeResponse.setValue(sheepType.getValue());
-				sheepsGroupByTypeResponse.add(lambTypeResponse);
-			}
-			return new Gson().toJson(sheepsGroupByTypeResponse);
+			List<List> sheepsGroupByType = sheepDAO.getAllSheepsMaleAndFemale();
+			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(sheepsGroupByType));
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage(), e);
 		}
@@ -46,16 +37,8 @@ public class DashbordService {
 	
 	public String getAllAmountOfStoredFeed() throws BusinessException {
 		try {
-
-			List<Dashboard> amounts = feedDAO.getAllAmountOfStoredFeed();
-			List<DashboardDTO> amountOfStoredFeed = new ArrayList<>();
-			for (Dashboard amount : amounts) {
-				DashboardDTO amountDTO = new DashboardDTO();
-				amountDTO.setType(amount.getType());
-				amountDTO.setValue(amount.getValue());
-				amountOfStoredFeed.add(amountDTO);
-			}
-			return new Gson().toJson(amountOfStoredFeed);
+			List<List> amounts = feedDAO.getAllAmountOfStoredFeed();
+			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(amounts));
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage(), e);
 		}
@@ -64,15 +47,8 @@ public class DashbordService {
 	public String getAllLambsGroupByType() throws BusinessException {
 		try {
 
-			List<Dashboard> lambsGroupByType = lambsDAO.getAllLambsMaleAndFemale();
-			List<DashboardDTO> lambsGroupByTypeResponse = new ArrayList<>();
-			for (Dashboard lambType : lambsGroupByType) {
-				DashboardDTO sheepTypeResponse = new DashboardDTO();
-				sheepTypeResponse.setType(lambType.getType());
-				sheepTypeResponse.setValue(lambType.getValue());
-				lambsGroupByTypeResponse.add(sheepTypeResponse);
-			}
-			return new Gson().toJson(lambsGroupByTypeResponse);
+			List<List> lambsGroupByType = lambsDAO.getAllLambsMaleAndFemale();
+			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(lambsGroupByType));
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage(), e);
 		}
