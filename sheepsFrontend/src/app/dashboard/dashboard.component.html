@@ -1,21 +1,29 @@
 <div class="ui-g dashboard" style="margin-top: 60px;">
     <div class="ui-g-12">
         <div class="ui-g-12 ui-md-6">
-            <div class="card" >
-                <h2 style="color:green;text-align:center">Transaction</h2>
-                    <div style="overflow:auto">
-                        <p-chart type="doughnut" [data]="data" responsive="true" ></p-chart>
-                    </div>
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-6">
             <div class="card">
-                <h2 style="color:green;text-align:center">Payment Link</h2>
+                <h2 style="color:green;text-align:center">الحمل</h2>
                 <div style="overflow:auto">
-                    <p-chart type="pie" [data]="data" responsive="true"></p-chart>
+                    <p-chart type="pie" [data]="dataForLambs" responsive="true"></p-chart>
                 </div>
             </div>
         </div>
-           
+        <div class="ui-g-12 ui-md-6">
+            <div class="card" >
+                <h2 style="color:green;text-align:center">القطيع</h2>
+                    <div style="overflow:auto">
+                        <p-chart type="doughnut" [data]="dataForSheep" responsive="true" ></p-chart>
+                    </div>
+            </div>
+        </div>           
    </div> 
+   <div class="ui-g-12">
+        <div class="card">
+            <h2 style="color:green;text-align:center">الاعلاف المخزونة</h2>
+            <div style="overflow:auto">
+                <p-chart type="bar" [data]="dataForAmount" responsive="true"></p-chart>
+            </div>
+        </div>
+
+    </div>
 </div>

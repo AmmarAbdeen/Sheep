@@ -151,6 +151,24 @@ export class GeneralService {
       return this.httpClient.get(url);
     }
 
+    getAllSheepGroupByType(){
+      const url = environment.BaseUrl + '/dashboard/getallsheepgroupbytype';
+      const header = { 'Content-Type': 'application/json; charset=utf-8' };
+      return this.httpClient.get(url, { headers: header });
+    }
+  
+    getAllLambsGroupByType(){
+      const url = environment.BaseUrl + '/dashboard/getalllambsgroupbytype';
+      const header = { 'Content-Type': 'application/json; charset=utf-8' };
+      return this.httpClient.get(url, { headers: header });
+    }
+  
+    getAllAmountOfStoredFeed(){
+      const url = environment.BaseUrl + '/dashboard/getallamountofstoredfeed';
+      const header = { 'Content-Type': 'application/json; charset=utf-8' };
+      return this.httpClient.get(url, { headers: header });
+    }
+
     getToken() {
       return localStorage.getItem('session-token');
     }
