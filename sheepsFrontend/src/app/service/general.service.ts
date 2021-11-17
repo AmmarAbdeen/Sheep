@@ -169,6 +169,18 @@ export class GeneralService {
       return this.httpClient.get(url, { headers: header });
     }
 
+    getAllLambsPerMonth(){
+      const url = environment.BaseUrl + '/dashboard/getalllambspermonth';
+      const header = { 'Content-Type': 'application/json; charset=utf-8' };
+      return this.httpClient.get(url, { headers: header });
+    }
+
+    getAllSheepsPerAge (){
+      const url = environment.BaseUrl + '/dashboard/getallsheepperage';
+      const header = { 'Content-Type': 'application/json; charset=utf-8' };
+      return this.httpClient.get(url, { headers: header });
+    }
+
     getToken() {
       return localStorage.getItem('session-token');
     }

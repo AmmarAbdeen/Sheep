@@ -27,5 +27,21 @@ public class LabelsDataMapper {
 		return labelsDataMap;
 	}
 	
+	public static Map<String, List<?>> toSpecificLabelsDataMap(List<List> table) {
+		Map<String, List<?>> labelsDataMap = new HashMap<>();
+		List labels = new ArrayList<>();
+		List data = new ArrayList<>();
+		
+		labelsDataMap.put("labels", labels);
+		labelsDataMap.put("data", data);
+		
+		for (List row : table) {
+			labels.add("  أقل من  "+row.get(1).toString() +" سنة ");
+			data.add(row.get(0));
+		}
+		
+		return labelsDataMap;
+	}
+	
 
 }

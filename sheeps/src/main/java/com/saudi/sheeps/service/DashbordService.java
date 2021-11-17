@@ -1,5 +1,6 @@
 package com.saudi.sheeps.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,24 @@ public class DashbordService {
 		try {
 			List<List> sheepsGroupByType = sheepDAO.getAllSheepsMaleAndFemale();
 			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(sheepsGroupByType));
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage(), e);
+		}
+	}
+	
+	public String getAllSheepPerAge() throws BusinessException {
+		try {
+			List<List> sheepsGroupByType = sheepDAO.getAllSheepPerAge();
+			return new Gson().toJson(LabelsDataMapper.toSpecificLabelsDataMap(sheepsGroupByType));
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage(), e);
+		}
+	}
+	
+	public String getAllLambsPerMonth() throws BusinessException {
+		try {
+			List<List> lambsGroupByType = lambsDAO.getAllLambsPerMonth(LocalDate.now().minusMonths(LocalDate.now().getMonthValue()),LocalDate.now());
+			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(lambsGroupByType));
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage(), e);
 		}

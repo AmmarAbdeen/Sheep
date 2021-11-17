@@ -35,6 +35,18 @@ public class DashboardController extends BaseController {
 		}
 	}
 	
+	@GetMapping(value = "/getalllambspermonth")
+	public ResponseEntity<?> getAllLambsPerMonth(@RequestHeader("session-token") String sessionToken) {
+		try {
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
+			return success(dashbordService.getAllLambsPerMonth());
+
+		} catch (Exception e) {
+			return wrapException(e, "getAllLambsPerMonth");
+
+		}
+	}
+	
 	@GetMapping(value = "/getalllambsgroupbytype")
 	public ResponseEntity<?> getAllLambsGroupByType(@RequestHeader("session-token") String sessionToken) {
 		try {
@@ -55,6 +67,18 @@ public class DashboardController extends BaseController {
 
 		} catch (Exception e) {
 			return wrapException(e, "getAllAmountOfStoredFeed");
+
+		}
+	}
+
+	@GetMapping(value = "/getallsheepperage")
+	public ResponseEntity<?> getAllSheepsPerAge(@RequestHeader("session-token") String sessionToken) {
+		try {
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
+			return success(dashbordService.getAllSheepPerAge());
+
+		} catch (Exception e) {
+			return wrapException(e, "getAllSheepsPerAge");
 
 		}
 	}

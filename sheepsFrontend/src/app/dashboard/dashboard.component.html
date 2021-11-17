@@ -18,10 +18,28 @@
         </div>           
    </div> 
    <div class="ui-g-12">
+        <div class="ui-g-12 ui-md-6">
+                <div class="card">
+                    <h2 style="color:green;text-align:center">الاعلاف المخزونة</h2>
+                    <div style="overflow:auto">
+                        <p-chart type="bar" [data]="dataForAmount" responsive="true"></p-chart>
+                    </div>
+                </div>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <div class="card">
+                <h2 style="color:green;text-align:center">المواليد خلال السنة</h2>
+                <div style="overflow:auto">
+                    <p-chart type="bar" [data]="dataForLambsPerMonth" responsive="true"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g-12">
         <div class="card">
-            <h2 style="color:green;text-align:center">الاعلاف المخزونة</h2>
+            <h2 style="color:green;text-align:center">اعمار النعاج</h2>
             <div style="overflow:auto">
-                <p-chart type="bar" [data]="dataForAmount" responsive="true"></p-chart>
+                <p-chart type="bar" [data]="dataForSheepPerAge" responsive="true"></p-chart>
             </div>
         </div>
 
