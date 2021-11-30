@@ -22,11 +22,13 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.saudi.sheeps.dao.LambsDAO;
+import com.saudi.sheeps.dao.LookupsDAO;
 import com.saudi.sheeps.dao.PlacesDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dto.LambsDTO;
 import com.saudi.sheeps.dto.SheepDTO;
 import com.saudi.sheeps.entity.Lambs;
+import com.saudi.sheeps.entity.Lookups;
 import com.saudi.sheeps.entity.Places;
 import com.saudi.sheeps.entity.Sheep;
 import com.saudi.sheeps.exception.BusinessException;
@@ -39,6 +41,8 @@ public class LambsService {
 	
 	@Autowired
 	private LambsDAO lambsDAO;
+	@Autowired
+	private LookupsDAO lookupsDAO;
 	@Autowired
 	private SheepService sheepService;
 	@Autowired
@@ -279,7 +283,8 @@ public class LambsService {
 		LambsDTO lambDTO = new LambsDTO();
 		lambDTO.setId(lamb.getId());
 		lambDTO.setCode(lamb.getCode());
-		lambDTO.setColor(lamb.getColor());
+		Lookups lookups = lookupsDAO.findByNameAR(lamb.getColor());
+		lambDTO.setColor(lookups.getNameAR());
 		lambDTO.setAdvantages(lamb.getAdvantages());
 		int birthDate =(int)lamb.getBirthDate().atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
 		int now =(int)LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toEpochSecond();

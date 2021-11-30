@@ -36,10 +36,20 @@
         </div>
     </div>
     <div class="ui-g-12">
-        <div class="card">
-            <h2 style="color:green;text-align:center">اعمار النعاج</h2>
-            <div style="overflow:auto">
-                <p-chart type="bar" [data]="dataForSheepPerAge" responsive="true"></p-chart>
+        <div class="ui-g-12 ui-md-6">
+            <div class="card">
+                <h2 style="color:green;text-align:center">اعمار النعاج</h2>
+                <div style="overflow:auto">
+                    <p-chart type="bar" [data]="dataForSheepPerAge" responsive="true"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <div class="card">
+                <h2 style="color:green;text-align:center">نفوق القطيع والاولاد</h2>
+                <div style="overflow:auto">
+                    <p-chart type="bar" [data]="dataForSheepAndLambsPerStatus" responsive="true"></p-chart>
+                </div>
             </div>
         </div>
 

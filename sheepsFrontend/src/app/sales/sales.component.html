@@ -1,0 +1,177 @@
+
+<div class="ui-g ui-fluid" style="margin-top: 60px;">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <form #addForm="ngForm" [formGroup]="form" (ngSubmit)="onsubmit()" class="contact-form"
+                  dir="rtl">
+                <p-messages></p-messages>
+                <div class="ui-g form-group">
+                    <h1 style="width: 60%;">الدخل</h1>
+                </div>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sale.type" [options]="types"
+                                formControlName="type" id="type" name="type"
+                                placeholder="النوع"></p-dropdown>
+                                <div *ngIf="(form.get('type').invalid&&form.get('type').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('type').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                         لابد من ادخال نوع المباع
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sale.code" formControlName="code"
+                                id="code" name="code"  pInputText type="text">
+                                <div *ngIf="(form.get('code').invalid&&form.get('code').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('code').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         لابد من ادخال كود المباع 
+                                    </div>
+                               </div>
+                            <label>  الكود<span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sale.color" [options]="colors"
+                                formControlName="color" id="color" name="color"
+                                placeholder="اللون"></p-dropdown>
+                                <div *ngIf="(form.get('color').invalid&&form.get('color').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('color').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                         لابد من ادخال اللون 
+                                    </div>
+                                </div>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sale.amount" formControlName="amount"
+                                id="amount" name="amount"  pInputText type="text">
+                            <div *ngIf="(form.get('amount').invalid&&form.get('amount').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('amount').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                     لابد من ادخال مبلغ البيع   
+                                    </div>
+                            </div>
+                            <label> المبلغ<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sale.buyer" formControlName="buyer"
+                                id="buyer" name="buyer"  pInputText type="text">
+                            <div *ngIf="(form.get('buyer').invalid&&form.get('buyer').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('buyer').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                     لابد من ادخال المشتري    
+                                    </div>
+                            </div>
+                            <label> المشتري<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="sale.description" formControlName="description"
+                                id="description" name="description"  pInputText type="text">
+                            <label>الوصف</label>
+                        </span>
+                    </div>          
+                       
+                </div>
+
+                <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
+
+                    <div class=" ui-g-12 ui-md-6">
+                        <button class="ui-button-info"  icon="ui-icon-add" label="حفظ"
+                            pButton pRipple style="margin-top: 20px;" type="submit"></button>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel"
+                            label="الغاء" pButton pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                            type="button"></button>
+                    </div>                  
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="ui-g-12">
+    <div class="card card-w-title">
+        <p-table #dt [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"        
+        [value]="sales" dataKey="code" selectionMode="single" styleClass="ui-table-cars">
+        <ng-template pTemplate="caption">
+            <div>
+                <div style="text-align: left;">
+                        <label style="margin-left: 50%;">المبيعات</label>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-columns pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field" >
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                    <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'ty[e'"
+                        class="ui-column-filter" pInputText placeholder="تحتوي على"
+                        style="width: 100%; margin-top: 0;" type="text">   
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'code'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'color'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">                
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'amount'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'creationDate'" class="ui-column-filter" pInputText
+                        style="width: 100%; margin-top: 0;" type="date">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'buyer'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'description'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template let-columns="columns" let-rowData pTemplate="body">
+            <tr [pEditableRow]="rowData" [pSelectableRow]="rowData">
+                <td>{{rowData.type}}</td>
+                <td>{{rowData.code}}</td>
+                <td>{{rowData.color}}</td>
+                <td>{{rowData.amount}}</td>
+                <td>{{rowData.creationDate}}</td>
+                <td>{{rowData.buyer}}</td>
+                <td>{{rowData.description}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+</div>

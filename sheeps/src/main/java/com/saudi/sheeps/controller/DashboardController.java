@@ -82,5 +82,17 @@ public class DashboardController extends BaseController {
 
 		}
 	}
+	
+	@GetMapping(value = "/getallsheepsandlambsperstatus")
+	public ResponseEntity<?> getAllSheepsAndLambsPerStatus(@RequestHeader("session-token") String sessionToken) {
+		try {
+			Claims tokenInfo = jwtservice.decodeJWT(sessionToken).getBody();
+			return success(dashbordService.getAllSheepsAndLambsPerStatus());
+
+		} catch (Exception e) {
+			return wrapException(e, "getAllSheepsAndLambsPerStatus");
+
+		}
+	}
 
 }

@@ -29,6 +29,10 @@ public interface SheepDAO extends JpaRepository<Sheep, Long> {
 			+ "where s.type = 'ewe' GROUP BY EXTRACT(YEAR from AGE(s.birthdate)) order by EXTRACT(YEAR from AGE(s.birthdate))", nativeQuery = true)
 	List<List> getAllSheepPerAge();
 	
+	@Modifying(clearAutomatically = true)
+	@Query(value = "select count(*) from Sheep as s where s.status = :status union All select count(*) from Lambs as l where l.status = :status", nativeQuery = true)
+	List<List> getAllSheepAndLambsPerStatus(@Param("status") String status);
+	
 
 }
 

@@ -33,7 +33,7 @@
                         <div class="ui-inputgroup">
                             <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
                             <span class="md-inputfield">
-                                <p-calendar [maxDate]="this.form.get('toDate').value == null ? this.todayDate : this.form.get('toDate').value" formControlName="fromDate"
+                                <p-calendar  formControlName="fromDate"
                                     name="fromDate" pInputText placeholder=" من تاريخ دخول"></p-calendar>
                             </span>
                         </div>
@@ -42,7 +42,7 @@
                         <div class="ui-inputgroup">
                             <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
                             <span class="md-inputfield">
-                                <p-calendar [minDate]="form.get('fromDate').value" [maxDate]="todayDate" formControlName="toDate"
+                                <p-calendar [minDate]="form.get('fromDate').value"  formControlName="toDate"
                                     name="toDate" pInputText placeholder="الى تاريخ دخول "></p-calendar>
                             </span>
                         </div>
@@ -53,7 +53,7 @@
                 <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
 
                     <div class=" ui-g-12 ui-md-6">
-                        <button class="ui-button-info" icon="ui-icon-search" [disabled]="isSearchBtnDisabled"
+                        <button class="ui-button-info" icon="ui-icon-search" 
                             label="بحث " pButton style="margin-top: 20px;margin-bottom:10px"
                             type="submit"></button>
                     </div>

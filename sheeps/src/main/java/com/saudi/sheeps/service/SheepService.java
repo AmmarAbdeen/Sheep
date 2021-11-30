@@ -18,9 +18,11 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.LookupsDAO;
 import com.saudi.sheeps.dao.PlacesDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dto.SheepDTO;
+import com.saudi.sheeps.entity.Lookups;
 import com.saudi.sheeps.entity.Places;
 import com.saudi.sheeps.entity.Sheep;
 import com.saudi.sheeps.exception.BusinessException;
@@ -35,6 +37,8 @@ public class SheepService {
 	private SheepDAO sheepDAO;
 	@Autowired
 	private PlacesService placesService;
+	@Autowired
+	private LookupsDAO lookupsDAO;
 	@Autowired
 	private PlacesDAO placesDAO;
 	@PersistenceContext
@@ -259,7 +263,8 @@ public class SheepService {
 		SheepDTO sheepDTO = new SheepDTO();
 		sheepDTO.setId(sheep.getId());
 		sheepDTO.setCode(sheep.getCode());
-		sheepDTO.setColor(sheep.getColor());
+		Lookups lookups = lookupsDAO.findByNameAR(sheep.getColor());
+		sheepDTO.setColor(lookups.getNameAR());
 		sheepDTO.setAdvantages(sheep.getAdvantages());
 		int birthDate =(int)sheep.getBirthDate().atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
 		int now =(int)LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toEpochSecond();

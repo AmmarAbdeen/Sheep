@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   BaseUrl: 'http://localhost:8090/sheeps/api/sheep',
-  LoginUrl: '/sheepframe',
+  LoginUrl: '',
 };

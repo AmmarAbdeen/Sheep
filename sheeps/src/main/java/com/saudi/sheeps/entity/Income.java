@@ -13,18 +13,21 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.google.gson.annotations.Expose;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Setter
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 
-
-@Table(name = "PAYMENTS")
-public class Payments {
+@Table(name = "INCOME")
+public class Income {
 	
 	@Expose
 	@Id
@@ -36,19 +39,17 @@ public class Payments {
 	private LocalDateTime creationDate;
 	
 	@Expose
-	@Column(name = "AMOUNT",  nullable = false)
-	private String amount;
+	@Column(name = "AMOUNT")
+	private Double amount;
 	
 	@Expose
-	@Column(name = "NAMED",  nullable = false)
-	private String named;
-	
+	@Column(name = "SOURCE")
+	private String source;
+
 	@Expose
-	@Column(name = "NOTES",  nullable = false)
-	private String notes;
-	
-	@Expose
-	@Column(name = "DESCRIPTION",  nullable = false)
+	@Column(name = "DESCRIPTION")
 	private String description;
+	
+
 
 }

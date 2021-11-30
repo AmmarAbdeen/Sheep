@@ -65,6 +65,10 @@ export class AddNewSheepComponent implements OnInit {
             label: this.sheep.place.code,
             value: this.sheep.place
         });
+        this.colors.push({
+          label: this.sheep.color,
+          value: this.sheep.color
+      });
            this.sheep.birthDate = this.sheep.birthDate != null ? new Date(this.sheep.birthDate) : null;
            this.sheep.arrivalDate = this.sheep.arrivalDate != null ? new Date(this.sheep.arrivalDate) : null;
           },(error) => {
@@ -124,13 +128,13 @@ export class AddNewSheepComponent implements OnInit {
 }
 
   cancel() {
-    this.router.navigate(['/sheepframe/home/dashboard']);
+    this.router.navigate(['/home/dashboard']);
   }
 
   statusLookups(){
       this.statuses = [ 
-        {label: 'الحالة الاولى', value: 'first'},
-        {label: 'الحالة الثانية', value: 'second'},
+        {label: 'مباع', value: 'saled'},
+        {label: 'متاح', value: 'available'}
         ];
   }
 
@@ -141,11 +145,23 @@ export class AddNewSheepComponent implements OnInit {
       ];
   }
   colorLookups(){
-    this.colors = [ 
-      {label: 'أحمر', value: 'red'},
-      {label: 'أصفر', value: 'yellow'},
-      {label: 'أخضر', value: 'green'},
-      ];
+    this.colors =[];
+    this.generalService.getLookupsByType("color").subscribe(
+      (responseData: any) => {
+          for (let i = 0; i < responseData.length; i++) {
+              this.colors.push({
+                  label: responseData[i].nameAR,
+                  value: responseData[i].nameAR
+              });
+          }
+      },
+      (error: any) => {
+        document.documentElement.scrollTop = 0;
+        this.messageService.clear();
+        console.log(error);
+        this.messageService.add({severity: 'error', detail: "هناك مشكلة في تحميل الحظائر حاول مرة اخرى"});
+      }
+  );
   }
   placeLookups(){
     this.places = [];

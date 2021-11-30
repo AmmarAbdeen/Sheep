@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
            localStorage.setItem('session-token', responseData.sessionToken);
            localStorage.setItem('user', JSON.stringify(responseData));
             this.isLoginBtnDisabled = false;
-            this.router.navigate(['/sheepframe/home/dashboard']);
+            this.router.navigate(['/home/dashboard']);
         },
         (error: any) => {
            this.errormsg= true;

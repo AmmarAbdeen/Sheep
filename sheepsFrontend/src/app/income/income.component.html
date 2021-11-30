@@ -1,0 +1,121 @@
+
+<div class="ui-g ui-fluid" style="margin-top: 60px;">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <form #addForm="ngForm" [formGroup]="form" (ngSubmit)="onsubmit()" class="contact-form"
+                  dir="rtl">
+                <p-messages></p-messages>
+                <div class="ui-g form-group">
+                    <h1 style="width: 60%;">الدخل</h1>
+                </div>
+                <div class="ui-g form-group">
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="income.source" formControlName="source"
+                                id="source" name="source"  pInputText type="text">
+                                <div *ngIf="(form.get('source').invalid&&form.get('source').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('source').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                         لابد من ادخال مصدر المبلغ
+                                    </div>
+                               </div>
+                            <label> مصدر المبلغ <span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="income.amount" formControlName="amount"
+                                id="amount" name="amount"  pInputText type="text">
+                            <div *ngIf="(form.get('amount').invalid&&form.get('amount').touched)||validateAllForm"
+                                class="ui-message ui-messages-error ui-corner-all">
+                                    <div *ngIf="form.get('amount').errors?.required"
+                                        class="ui-message ui-messages-error ui-corner-all" translate>
+                                     لابد من ادخال المبلغ المدفوع
+                                    </div>
+                            </div>
+                            <label>المبلغ المدفوع<span class="required-asterisk"
+                                style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="income.description" formControlName="description"
+                                id="description" name="description"  pInputText type="text">
+                            <label>الوصف</label>
+                        </span>
+                    </div>          
+                       
+                </div>
+
+                <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
+
+                    <div class=" ui-g-12 ui-md-6">
+                        <button class="ui-button-info"  icon="ui-icon-add" label="حفظ"
+                            pButton pRipple style="margin-top: 20px;" type="submit"></button>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel"
+                            label="الغاء" pButton pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                            type="button"></button>
+                    </div>                  
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="ui-g-12">
+    <div class="card card-w-title">
+        <p-table #dt [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]"        
+        [value]="incomes" dataKey="source" selectionMode="single" styleClass="ui-table-cars">
+        <ng-template pTemplate="caption">
+            <div>
+                <div style="text-align: left;">
+                        <label style="margin-left: 50%;">الدخل</label>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-columns pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field" >
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+            
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                    <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'source'"
+                        class="ui-column-filter" pInputText placeholder="تحتوي على"
+                        style="width: 100%; margin-top: 0;" type="text">                   
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'amount'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'creationDate'" class="ui-column-filter" pInputText
+                        style="width: 100%; margin-top: 0;" type="date">
+                    <input (input)="dt.filter($event.target.value, col.field, 'contains')"
+                        *ngSwitchCase="'description'" class="ui-column-filter" pInputText
+                        placeholder="تحتوي على" style="width: 100%; margin-top: 0;" type="text">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template let-columns="columns" let-rowData pTemplate="body">
+            <tr [pEditableRow]="rowData" [pSelectableRow]="rowData">
+                <td>{{rowData.source}}</td>
+                <td>{{rowData.amount}}</td>
+                <td>{{rowData.creationDate}}</td>
+                <td>{{rowData.description}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+</div>

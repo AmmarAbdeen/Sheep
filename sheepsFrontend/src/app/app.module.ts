@@ -103,6 +103,9 @@ import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { ChartModule } from 'primeng/chart';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GeneralPaymentComponent } from './general-payment/general-payment.component';
+import { SalesComponent } from './sales/sales.component';
+import { IncomeComponent } from './income/income.component';
 
 @NgModule({
     imports: [
@@ -204,7 +207,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         SheepMovementComponent,
         SheepMovementSearchComponent,
         LoginComponent,
-        DashboardComponent
+        DashboardComponent,
+        GeneralPaymentComponent,
+        SalesComponent,
+        IncomeComponent
         ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},

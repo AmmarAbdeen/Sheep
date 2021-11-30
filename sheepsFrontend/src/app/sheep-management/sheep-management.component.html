@@ -32,7 +32,7 @@
                         <div class="ui-inputgroup">
                             <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
                             <span class="md-inputfield">
-                                <p-calendar [maxDate]="this.form.get('toBirthDate').value == null ? this.todayDate : this.form.get('toBirthDate').value" formControlName="fromBirthDate"
+                                <p-calendar  formControlName="fromBirthDate"
                                     name="fromBirthDate" pInputText placeholder="من تاريخ ميلاد"></p-calendar>
                             </span>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="ui-inputgroup">
                             <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
                             <span class="md-inputfield">
-                                <p-calendar [minDate]="form.get('fromBirthDate').value" [maxDate]="todayDate" formControlName="toBirthDate"
+                                <p-calendar [minDate]="form.get('fromBirthDate').value" formControlName="toBirthDate"
                                     name="toBirthDate" pInputText placeholder="الى تاريخ ميلاد"></p-calendar>
                             </span>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="ui-inputgroup">
                             <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
                             <span class="md-inputfield">
-                                <p-calendar [maxDate]="this.form.get('toBirthDate').value == null ? this.todayDate : this.form.get('toBirthDate').value" formControlName="fromArrivalDate"
+                                <p-calendar  formControlName="fromArrivalDate"
                                     name="fromArrivalDate" pInputText placeholder="من تاريخ وصول"></p-calendar>
                             </span>
                         </div>
@@ -60,7 +60,7 @@
                         <div class="ui-inputgroup">
                             <span class="ui-inputgroup-addon"><i class="material-icons">date_range</i></span>
                             <span class="md-inputfield">
-                                <p-calendar [minDate]="form.get('fromArrivalDate').value" [maxDate]="todayDate" formControlName="toArrivalDate"
+                                <p-calendar [minDate]="form.get('fromArrivalDate').value"  formControlName="toArrivalDate"
                                     name="toArrivalDate" pInputText placeholder="الى تاريخ وصول"></p-calendar>
                             </span>
                         </div>
@@ -106,7 +106,7 @@
                 <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 30%;">
 
                     <div class=" ui-g-12 ui-md-6">
-                        <button class="ui-button-info" icon="ui-icon-search" [disabled]="isSearchBtnDisabled"
+                        <button class="ui-button-info" icon="ui-icon-search" 
                             label="بحث " pButton style="margin-top: 20px;margin-bottom:10px"
                             type="submit"></button>
                     </div>

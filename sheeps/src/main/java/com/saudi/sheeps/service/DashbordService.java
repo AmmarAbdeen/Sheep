@@ -45,6 +45,19 @@ public class DashbordService {
 		}
 	}
 	
+	public String getAllSheepsAndLambsPerStatus() throws BusinessException {
+		try {
+			List<List> sheepsGroupByType = sheepDAO.getAllSheepAndLambsPerStatus("first");
+			List data = new ArrayList<>();
+			for (List row : sheepsGroupByType) {
+				data.add(row.get(0));
+			}
+			return new Gson().toJson(data);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage(), e);
+		}
+	}
+	
 	public String getAllLambsPerMonth() throws BusinessException {
 		try {
 			List<List> lambsGroupByType = lambsDAO.getAllLambsPerMonth(LocalDate.now().minusMonths(LocalDate.now().getMonthValue()),LocalDate.now());

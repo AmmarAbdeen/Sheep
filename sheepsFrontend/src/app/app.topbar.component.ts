@@ -10,7 +10,7 @@ export class AppTopBarComponent {
 
     user: any;
 
-    constructor(public app: AppMainComponent,private generalService: GeneralService) {}
+    constructor(public app: AppMainComponent,public generalService: GeneralService) {}
 
     ngOnInit() {
 

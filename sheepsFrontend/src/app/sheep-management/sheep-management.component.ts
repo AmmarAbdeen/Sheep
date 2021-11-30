@@ -56,17 +56,29 @@ export class SheepManagementComponent implements OnInit {
 
   statusLookups(){
     this.statuses = [ 
-      {label: 'الحالة الاولى', value: 'first'},
-      {label: 'الحالة الثانية', value: 'second'},
+      {label: 'مباع', value: 'saled'},
+      {label: 'متاح', value: 'available'}
       ];
 }
 
 colorLookups(){
-  this.colors = [ 
-    {label: 'أحمر', value: 'red'},
-    {label: 'أصفر', value: 'yellow'},
-    {label: 'أخضر', value: 'green'},
-    ];
+  this.colors =[];
+  this.generalService.getLookupsByType("color").subscribe(
+    (responseData: any) => {
+        for (let i = 0; i < responseData.length; i++) {
+            this.colors.push({
+                label: responseData[i].nameAR,
+                value: responseData[i].nameAR
+            });
+        }
+    },
+    (error: any) => {
+      document.documentElement.scrollTop = 0;
+      this.messageService.clear();
+      console.log(error);
+      this.messageService.add({severity: 'error', detail: "هناك مشكلة في تحميل الحظائر حاول مرة اخرى"});
+    }
+);
 }
 
 onsubmit(){
@@ -137,7 +149,7 @@ onsubmit(){
 }
 
 editSheep(code: any,color: any) {
-  this.router.navigate(['sheepframe/sheepcomponents/addNewSheep'], { queryParams: { code,color } });
+  this.router.navigate(['home/sheepcomponents/addNewSheep'], { queryParams: { code,color } });
 
 }
 

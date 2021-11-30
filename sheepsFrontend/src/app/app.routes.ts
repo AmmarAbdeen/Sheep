@@ -21,10 +21,13 @@ import { SheepMovementSearchComponent } from './sheep-movement-search/sheep-move
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GeneralPaymentComponent } from './general-payment/general-payment.component';
+import { IncomeComponent } from './income/income.component';
+import { SalesComponent } from './sales/sales.component';
 
 export const routes: Routes = [
-    {path: 'sheepframe', component: LoginComponent},
-    { path: 'sheepframe/home', component: AppMainComponent,
+    {path: '', component: LoginComponent},
+    { path: 'home', component: AppMainComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'sheepcomponents/addNewSheep', component: AddNewSheepComponent, canActivate: [AuthGuard]},
@@ -39,7 +42,11 @@ export const routes: Routes = [
             { path: 'medicinecomponents/medicine', component: MedicineComponent, canActivate: [AuthGuard]},
             { path: 'medicinecomponents/sheepmedicine', component:SheepDiseaseMedicineComponent, canActivate: [AuthGuard] },
             { path: 'sheepmovement/movement', component:SheepMovementComponent, canActivate: [AuthGuard] },
-            { path: 'sheepmovement/movementsearch', component:SheepMovementSearchComponent , canActivate: [AuthGuard]}
+            { path: 'sheepmovement/movementsearch', component:SheepMovementSearchComponent , canActivate: [AuthGuard]},
+            { path: 'payment/generalpayment', component:GeneralPaymentComponent , canActivate: [AuthGuard]},
+            { path: 'payment/income', component:IncomeComponent , canActivate: [AuthGuard]},
+            { path: 'payment/sales', component:SalesComponent , canActivate: [AuthGuard]},
+
         ]
     },
     {path: 'error', component: AppErrorComponent},

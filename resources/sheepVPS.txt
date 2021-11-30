@@ -1,0 +1,30 @@
+A@123123123a
+
+su - postgres
+psql sheepFarm
+
+sudo systemctl enable tomcat9
+
+sudo systemctl disable tomcat9
+
+CREATE TABLE public.user(
+    id serial PRIMARY KEY,
+creation_date timestamp,
+    email varchar (255) NOT NULL,
+	full_name varchar (255) NOT NULL,
+	mobile_number varchar (255) NOT NULL,
+	national_id varchar (255) NOT NULL,
+	password varchar (255) NOT NULL,
+    user_name varchar (25) NOT NULL
+);
+
+CREATE TABLE public.user(
+   id       SERIAL,       --id; auto-increment when empty
+   email     varchar(200),  --email
+   full_name     varchar(200),  --full_name
+   mobile_number     varchar(200),  --mobile_number
+   password          varchar(200),  --password 
+   user_name         varchar(200),   --username
+   creation_date     timestamp,      --creationDate
+   national_id   varchar(200)           --national_id
+);

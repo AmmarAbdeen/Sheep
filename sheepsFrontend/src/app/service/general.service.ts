@@ -151,6 +151,44 @@ export class GeneralService {
       return this.httpClient.get(url);
     }
 
+    getPayments() {
+      const url = environment.BaseUrl + '/payments/getallpayments';
+      return this.httpClient.get(url);
+    }
+
+    savePayment(body :any){
+      const url = environment.BaseUrl + '/payments/savepayment';
+      const header = {'Content-Type': 'application/json; charset=utf-8'};
+      return this.httpClient.post(url, JSON.stringify(body), {headers: header});
+    }
+
+    getIncomes() {
+      const url = environment.BaseUrl + '/payments/getallincomes';
+      return this.httpClient.get(url);
+    }
+
+    saveIncome(body :any){
+      const url = environment.BaseUrl + '/payments/saveincome';
+      const header = {'Content-Type': 'application/json; charset=utf-8'};
+      return this.httpClient.post(url, JSON.stringify(body), {headers: header});
+    }
+
+    getSales() {
+      const url = environment.BaseUrl + '/sales/getallsales';
+      return this.httpClient.get(url);
+    }
+
+    saveSale(body :any){
+      const url = environment.BaseUrl + '/sales/savesale';
+      const header = {'Content-Type': 'application/json; charset=utf-8'};
+      return this.httpClient.post(url, JSON.stringify(body), {headers: header});
+    }
+
+    getLookupsByType(type:String) {
+      const url = environment.BaseUrl + '/lookups/alllookups/'+ type;
+      return this.httpClient.get(url);
+    }
+
     getAllSheepGroupByType(){
       const url = environment.BaseUrl + '/dashboard/getallsheepgroupbytype';
       const header = { 'Content-Type': 'application/json; charset=utf-8' };
@@ -177,6 +215,11 @@ export class GeneralService {
 
     getAllSheepsPerAge (){
       const url = environment.BaseUrl + '/dashboard/getallsheepperage';
+      const header = { 'Content-Type': 'application/json; charset=utf-8' };
+      return this.httpClient.get(url, { headers: header });
+    }
+    getAllSheepsAndLambsPerStatus(){
+      const url = environment.BaseUrl + '/dashboard/getallsheepsandlambsperstatus';
       const header = { 'Content-Type': 'application/json; charset=utf-8' };
       return this.httpClient.get(url, { headers: header });
     }
@@ -220,6 +263,6 @@ export class GeneralService {
       //     }
       // );
       localStorage.removeItem('session-token');
-      this.router.navigate(['/sheepframe']);
+      this.router.navigate(['']);
     }
 }

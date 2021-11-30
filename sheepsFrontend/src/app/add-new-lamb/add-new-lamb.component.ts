@@ -68,6 +68,10 @@ export class AddNewLambComponent implements OnInit {
             label: this.lamb.place.code,
             value: this.lamb.place
         });
+        this.colors.push({
+          label: this.lamb.color,
+          value: this.lamb.color
+      });
            this.lamb.birthDate = this.lamb.birthDate != null ? new Date(this.lamb.birthDate) : null;
            this.lamb.dateOfMating = this.lamb.dateOfMating != null ? new Date(this.lamb.dateOfMating) : null;
           },(error) => {
@@ -132,13 +136,13 @@ export class AddNewLambComponent implements OnInit {
 
 
   cancel() {
-    this.router.navigate(['/sheepframe/home/dashboard']);
+    this.router.navigate(['/home/dashboard']);
   }
 
   statusLookups(){
       this.statuses = [ 
-        {label: 'الحالة الاولى', value: 'first'},
-        {label: 'الحالة الثانية', value: 'second'},
+        {label: 'مباع', value: 'saled'},
+        {label: 'متاح', value: 'available'}
         ];
   }
 
@@ -149,11 +153,23 @@ export class AddNewLambComponent implements OnInit {
       ];
   }
   colorLookups(){
-    this.colors = [ 
-      {label: 'أحمر', value: 'red'},
-      {label: 'أصفر', value: 'yellow'},
-      {label: 'أخضر', value: 'green'},
-      ];
+    this.colors =[];
+    this.generalService.getLookupsByType("color").subscribe(
+      (responseData: any) => {
+          for (let i = 0; i < responseData.length; i++) {
+              this.colors.push({
+                  label: responseData[i].nameAR,
+                  value: responseData[i].nameAR
+              });
+          }
+      },
+      (error: any) => {
+        document.documentElement.scrollTop = 0;
+        this.messageService.clear();
+        console.log(error);
+        this.messageService.add({severity: 'error', detail: "هناك مشكلة في تحميل الحظائر حاول مرة اخرى"});
+      }
+  );
   }
   placeLookups(){
     this.places = [];

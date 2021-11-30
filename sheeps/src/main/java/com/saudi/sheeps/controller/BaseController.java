@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.google.gson.Gson;
 import com.saudi.sheeps.dto.BaseDTO;
@@ -21,6 +22,7 @@ import lombok.extern.apachecommons.CommonsLog;
 
 @Component
 @CommonsLog
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public abstract class BaseController {
 
 	

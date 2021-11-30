@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   dataForAmount: any;
   dataForLambsPerMonth:any;
   dataForSheepPerAge:any;
+  dataForSheepAndLambsPerStatus:any;
   constructor(private generalService: GeneralService) { }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
        this.getAllAmountOfStoredFeed();
        this.getAllSheepsPerAge();
        this.getAllLambsPerMonth(); 
+       this.getAllSheepsAndLambsPerStatus();
   }
 
   getAllSheepGroupByType(){
@@ -89,7 +91,7 @@ export class DashboardComponent implements OnInit {
                   labels: responseData.labels,
                   datasets: [
                     {
-                        label: 'Amount',
+                        label: 'الكمية',
                         backgroundColor: '#42A5F5',
                         data: responseData.data
                     }
@@ -134,8 +136,30 @@ export class DashboardComponent implements OnInit {
                 datasets: [
                   {
                       label: 'العدد',
-                      backgroundColor: '#7d7c7c',
+                      backgroundColor: '#b8b2b2',
                       data: responseData.data
+                  }
+              ]
+            };
+        },
+        (error: any) => {
+          console.log(error);
+        }
+    
+    );
+  }
+
+  getAllSheepsAndLambsPerStatus(){
+    this.generalService.getAllSheepsAndLambsPerStatus().subscribe(
+        (responseData: any) => {
+            console.log(responseData);
+            this.dataForSheepAndLambsPerStatus = {
+                labels: ['القطيع','الاولاد'],
+                datasets: [
+                  {
+                      label: 'العدد',
+                      backgroundColor: '#965345',
+                      data: responseData
                   }
               ]
             };
