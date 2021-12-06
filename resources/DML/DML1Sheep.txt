@@ -1,0 +1,76 @@
+INSERT INTO public."privileges" (id,code,english_name,arabic_name,backend_url,admin_privilege,icon_path,main_privilege,menu_item,parent_id,privilege_order,router_link)
+VALUES (1,'Dashboard','Dashboard','لوحة القيادة','/sheep/dashboard',false,'dashboard',true,false,null,1,'/home/dashboard'),
+       (2,'Sheep','Sheep','القائمة الرئيسية للقطيع ','',false,'list',true,false,null,2,'/home/sheepcomponents'),
+       (3,'addSheep','Add Sheep','اضافة (فحل / نعجة) جديد','/sheep/addsheep',false,'add',false,true,2,1,'/home/sheepcomponents/addNewSheep'),
+       (4,'SheepManagment','Sheep Managment','ادارة القطيع','',false,'search',false,true,2,2,'/home/sheepcomponents/managesheep'),
+       (5,'searchSheep','Search Sheep','بحث عن القطيع','/sheep/getsheeps',false,'search',false,false,4,0,'/home/sheepcomponents/managesheep'),
+       (6,'getSheepInfo','Get Sheep Info','بيانات القطيع','/sheep/getsheepbydata',false,'person',false,false,4,0,'/home/sheepcomponents/managesheep'),
+       
+       (7,'Lamb','Lamb',' القائمة الرئيسية للمواليد','',false,'list',true,false,null,3,'/home/lambcomponents'),
+       (8,'addLamb','Add Lamb','اضافة حمل جديد','/sheep/lambs/addlamb',false,'add',false,true,7,1,'/home/lambcomponents/addNewLamb'),
+       (9,'lambManagment','Lamb Managment','ادارة المواليد','',false,'search',false,true,7,2,'/home/lambcomponents/managelamb'),
+       (10,'searchLamb','Search Lamb','بحث عن المواليد','/sheep/lambs/getlambs',false,'search',false,false,9,0,'/home/lambcomponents/managelamb'),
+       (11,'getLambInfo','Get Lamb Info','بيانات المواليد','/sheep/lambs/lambs',false,'person',false,false,9,0,'/home/lambcomponents/managelamb'),
+       
+       (12,'Feed','Feed','الاعلاف','',false,'list',true,false,null,4,'/home/feedcomponents'),
+       
+       (13,'saveFeed','Save Feed','مشتريات الاعلاف ','',false,'shopping_cart',false,true,12,1,'/home/feedcomponents/savefeed'),
+       (14,'save','Save','حفظ الاعلاف ','/sheep/feed/savefeed',false,'save',false,false,13,0,'/home/feedcomponents/savefeed'),
+       (15,'getFeed','get Feed','عرض الاعلاف','/sheep/feed/getallfeed',false,'list',false,false,13,0,'/home/feedcomponents/savefeed'),
+       
+       (16,'feedlookups','Feed Lookups','القيمة الغذائية للاعلاف','',false,'shopping_cart',false,true,12,2,'/home/feedcomponents/feedlookups'),
+       (17,'saveLookupsFeed','Save Lookups Feed','حفظ  القيمة الغذائية للاعلاف ','/sheep/feedlookups/savelookups',false,'save',false,false,16,0,'/home/feedcomponents/feedlookups'),
+       (18,'getLookupsFeed','get lookups Feed','عرض القيم الغذائية للاعلاف','/sheep/feedlookups/getallfeedlookups',false,'list',false,false,16,0,'/home/feedcomponents/feedlookups'),
+       
+       (19,'storedFeed','Stored Feed','الاعلاف المخزنة','/sheep/feed/getallstoredfeed',false,'shopping_cart',false,true,12,3,'/home/feedcomponents/storedfeed'),
+       
+       (20,'Places','Places','الحظائر','',false,'storefront',true,false,null,5,'/home/placecomponents'),
+       
+       (21,'Place','Place','الحظائر','',false,'storefront',false,true,20,1,'/home/placecomponents/places'),
+       (22,'save','Save','حفظ  الحظائر ','/sheep/places/saveplace',false,'save',false,false,21,0,'/home/placecomponents/places'),
+       (23,'getPlaces','get Places','عرض الحظائر','/sheep/places/getallplaces',false,'list',false,false,21,0,'/home/placecomponents/places'),
+       
+       (24,'placesfeed','Places Feed','تغذية الحظائر','',false,'shopping_cart',false,true,20,2,'/home/placecomponents/placesfeed'),
+       (25,'saveplacesfeed','Save Places Feed','حفظ  تغذية الحظائر ','/sheep/places/saveplacesfeed',false,'save',false,false,24,0,'/home/placecomponents/placesfeed'),
+       (26,'getPlacesFeed','get Places Feed','عرض تغذية الحظائر','/sheep/places/getallplacesfeed',false,'list',false,false,24,0,'/home/placecomponents/placesfeed'),
+       
+       
+       (27,'Medicine','Medicine','الادوية','',false,'storefront',true,false,null,6,'/home/medicinecomponents'),
+       
+       (28,'addMedicine','Add Medicine','اضافة ادوية','',false,'storefront',false,true,27,1,'/home/medicinecomponents/medicine'),
+       (29,'saveMedicine','Save Medicine','حفظ  الادوية ','/sheep/medicine/savemedicine',false,'save',false,false,28,0,'/home/medicinecomponents/medicine'),
+       (30,'getMedicines','get Medicines','عرض الادوية','/sheep/medicine/getmedicines',false,'list',false,false,28,0,'/home/medicinecomponents/medicine'),
+       
+       (31,'sheepmedicine','Sheep Medicines','ادوية امراض القطيع','/sheep/medicine/savemedicinesheep',false,'shopping_cart',false,true,27,2,'/home/medicinecomponents/sheepmedicine'),
+       
+       (32,'sheepmovement','Sheep Movement','حركة القطيع','',false,'list',true,false,null,7,'/home/sheepmovement'),
+       (33,'addSheepMovement','Add Sheep Movement','حركة القطيع','/sheep/movement/savemovements',false,'add',false,true,32,1,'/home/sheepmovement/movement'),
+       (34,'SheepMovementSearch','Sheep Movement Search',' بحث ','/sheep/movement/getsheepmovements',false,'search',false,true,32,2,'/home/sheepmovement/movementsearch'),
+       
+       (35,'payment','Payment','المصاريف والدفع','',false,'attach_money',true,false,null,8,'/home/payment'),
+       
+       (36,'generalPayment','General Payment','المصاريف العامة','',false,'attach_money',false,true,35,1,'/home/payment/generalpayment'),
+       (37,'saveGeneralPayment','Save General Payment','حفظ  المصاريف العامة ','/sheep/payments/savepayment',false,'save',false,false,36,0,'/home/payment/generalpayment'),
+       (38,'getGeneralPayment','get General Payment','عرض المصاريف العامة','/sheep/payments/getallpayments',false,'list',false,false,36,0,'/home/payment/generalpayment'),
+       
+       (39,'income','Income',' الدخل ','',false,'attach_money',false,true,35,2,'/home/payment/income'),
+       (40,'saveIncome','Save Income','حفظ  الدخل ','/sheep/payments/saveIncomes',false,'save',false,false,39,0,'/home/payment/income'),
+       (41,'getIncome','get Income','عرض الدخل','/sheep/payments/getallincomes',false,'list',false,false,39,0,'/home/payment/income'),
+       
+       (42,'sales','Sales',' المبيعات ','',false,'attach_money',false,true,35,3,'/home/payment/sales'),
+       (43,'saveSales','Save Sales','حفظ  المبيعات ','/sheep/sales/saveSales',false,'save',false,false,42,0,'/home/payment/sales'),
+       (44,'getSales','get Sales','كل المبيعات','/sheep/sales/getallsales',false,'list',false,false,42,0,'/home/payment/sales')     
+       ;
+
+-----------------------------------------------------------------------------------------------------
+insert into public.user_privileges (user_id,privilege_id) values
+        (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),
+      (1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),
+      (1,25),(1,26),(1,27),(1,28),(1,29),(1,30),(1,31),(1,32),(1,33),(1,34),(1,35),(1,36),
+      (1,37),(1,38),(1,39),(1,40),(1,41),(1,42),(1,43),(1,44);
+       
+      
+      
+      
+      
+      
