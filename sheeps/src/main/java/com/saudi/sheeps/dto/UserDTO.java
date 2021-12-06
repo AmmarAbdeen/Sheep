@@ -1,7 +1,7 @@
 package com.saudi.sheeps.dto;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +27,8 @@ public class UserDTO extends BaseDTO {
 	private String nationalId;
 	
 	private String sessionToken;
+	
+	private List<PrivilegesDTO> privileges;
 
 
 }
