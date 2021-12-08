@@ -6,6 +6,8 @@ import { Lamb } from '../vo/Lamb';
 import { Sheep } from '../vo/Sheep';
 import jwt_decode from 'jwt-decode';
 import { TokenDecoded } from '../vo/TokenDecoded';
+import { Privilege } from '../vo/Privilege';
+import { User } from '../vo/User';
 @Injectable({
   providedIn: 'root'
 })
@@ -100,6 +102,23 @@ export class GeneralService {
       const url = environment.BaseUrl + '/lambs/getlambbydata';
       const header = {'Content-Type': 'application/json; charset=utf-8'};
       return this.httpClient.post<Lamb>(url, JSON.stringify(body), {headers: header});
+    }
+
+    getParentPrivilegesByUser(id :any){
+      const url = environment.BaseUrl + '/user/getparentprivileges/'+id;
+      const header = { 'Content-Type': 'application/json; charset=utf-8' };
+      return this.httpClient.get<Privilege[]>(url, { headers: header });
+    }
+    getUserById(id: any) {
+      const url = environment.BaseUrl + '/user/getuserinfo/' + id;
+      const header = {'Content-Type': 'application/json; charset=utf-8'};
+      return this.httpClient.get<User>(url, {headers: header});
+  }
+
+    getAllPrivilegesByUser(id :any){
+      const url = environment.BaseUrl + '/user/getallprivileges/'+id;
+      const header = { 'Content-Type': 'application/json; charset=utf-8' };
+      return this.httpClient.get<Privilege[]>(url, { headers: header });
     }
 
     getLambs(body: any) {
@@ -223,6 +242,24 @@ export class GeneralService {
       const header = { 'Content-Type': 'application/json; charset=utf-8' };
       return this.httpClient.get(url, { headers: header });
     }
+
+  newUser(body: any) {
+      const url = environment.BaseUrl + '/user/newuser';
+      const header = {'Content-Type': 'application/json; charset=utf-8'};
+      return this.httpClient.post(url, JSON.stringify(body), {headers: header});
+  }
+
+  updateUser(body: any) {
+    const url = environment.BaseUrl + '/user/updateuser';
+    const header = {'Content-Type': 'application/json; charset=utf-8'};
+    return this.httpClient.post(url, JSON.stringify(body), {headers: header});
+}
+
+  getAllUsers() {
+    const url = environment.BaseUrl + '/user/getallusers';
+    const header = { 'Content-Type': 'application/json; charset=utf-8' };
+    return this.httpClient.get(url, { headers: header });
+  }
 
     getToken() {
       return localStorage.getItem('session-token');

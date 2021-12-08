@@ -1,6 +1,7 @@
 package com.saudi.sheeps.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class UserDTO extends BaseDTO {
 	
 	private String sessionToken;
 	
-	private List<PrivilegesDTO> privileges;
+	private List<PrivilegesDTO> privileges = new ArrayList<>();
 
 
 }

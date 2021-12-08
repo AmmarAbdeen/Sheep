@@ -1,5 +1,7 @@
 package com.saudi.sheeps.dto;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import com.saudi.sheeps.entity.Privileges;
 
 import lombok.Getter;
@@ -31,6 +33,8 @@ public class PrivilegesDTO extends BaseDTO{
 
 	private boolean menuItem;
 
+	private List<PrivilegesDTO> childrenPrivilege;
+	
 	private Long privilegeorder;
 
 	private Long parentPrivilegeId;

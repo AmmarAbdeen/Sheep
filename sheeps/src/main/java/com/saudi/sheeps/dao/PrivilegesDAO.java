@@ -11,5 +11,7 @@ import com.saudi.sheeps.entity.Privileges;
 public interface PrivilegesDAO  extends JpaRepository<Privileges, Long>{
 	
 	List<Privileges> findAllByUserIdOrderByPrivilegeorder(Long userId);
+	
+	List<Privileges> findAllByUserIdAndAdminPrivilegeOrderByPrivilegeorder(Long userId,boolean adminPrivilege);
 
 }

@@ -24,6 +24,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GeneralPaymentComponent } from './general-payment/general-payment.component';
 import { IncomeComponent } from './income/income.component';
 import { SalesComponent } from './sales/sales.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { SearchUserComponent } from './search-user/search-user.component';
 
 export const routes: Routes = [
     {path: '', component: LoginComponent},
@@ -46,6 +48,8 @@ export const routes: Routes = [
             { path: 'payment/generalpayment', component:GeneralPaymentComponent , canActivate: [AuthGuard]},
             { path: 'payment/income', component:IncomeComponent , canActivate: [AuthGuard]},
             { path: 'payment/sales', component:SalesComponent , canActivate: [AuthGuard]},
+            { path: 'user/adduser', component:AddUserComponent , canActivate: [AuthGuard]},
+            { path: 'user/searchuser', component:SearchUserComponent , canActivate: [AuthGuard]}
 
         ]
     },

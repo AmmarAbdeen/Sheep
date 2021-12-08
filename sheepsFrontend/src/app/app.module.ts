@@ -106,6 +106,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GeneralPaymentComponent } from './general-payment/general-payment.component';
 import { SalesComponent } from './sales/sales.component';
 import { IncomeComponent } from './income/income.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { SearchUserComponent } from './search-user/search-user.component';
 
 @NgModule({
     imports: [
@@ -210,7 +212,9 @@ import { IncomeComponent } from './income/income.component';
         DashboardComponent,
         GeneralPaymentComponent,
         SalesComponent,
-        IncomeComponent
+        IncomeComponent,
+        AddUserComponent,
+        SearchUserComponent
         ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},

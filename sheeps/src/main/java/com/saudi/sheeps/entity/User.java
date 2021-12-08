@@ -63,7 +63,7 @@ public class User {
 	private String mobileNumber;
 	
 	@Expose
-	@Column(name = "NATIONAL_ID", unique = true,nullable = false)
+	@Column(name = "NATIONAL_ID")
 	private String nationalId;
 
 	@ManyToMany(fetch = FetchType.EAGER)

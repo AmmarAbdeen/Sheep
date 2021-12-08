@@ -1,0 +1,134 @@
+<form #newUserForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form" dir="rtl" style="margin-top: 60px;">
+    <p-messages></p-messages>
+    <div class="ui-g ui-fluid" style="margin-top: 10px;">
+
+        <div class="ui-g-12">
+            <div class="card card-w-title">
+                <h1 translate>اضافة مستخدم</h1>
+
+                <div class="ui-g form-group">
+                    
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="user.userName" formControlName="userName" id="userName" name="userName"  pInputText
+                                   type="text">
+                            <div *ngIf="(form.get('userName').invalid&&form.get('userName').touched)||validateAllForm"
+                                 class="ui-message ui-messages-error ui-corner-all">
+                                <div *ngIf="form.get('userName').errors?.required"
+                                     class="ui-message ui-messages-error ui-corner-all" >
+                                    من فضلك ادخل اسم المستخدم
+                                </div>
+                            </div>
+                            <label style="width:100%; text-align: start;">اسم المستخدم<span class="required-asterisk"
+                                                                           style="color: red;">*</span></label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="user.fullName" formControlName="fullName" id="fullName" name="fullName"  pInputText
+                                   type="text">
+                            <div *ngIf="(form.get('fullName').invalid&&form.get('fullName').touched)||validateAllForm"
+                                 class="ui-message ui-messages-error ui-corner-all">
+                                <div *ngIf="form.get('fullName').errors?.required"
+                                     class="ui-message ui-messages-error ui-corner-all" >
+                                    من فضلك ادخل الاسم الكامل للمستخدم
+                                </div>
+                            </div>
+                            <label style="width:100%; text-align: start;">اسم المستخدم كامل<span class="required-asterisk"
+                                                                           style="color: red;">*</span></label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="user.email" formControlName="email" id="email" name="email" maxlength="50" 
+                                pInputText type="text">
+                            <div *ngIf="(form.get('email').touched && form.get('email').invalid)||validateAllForm "
+                                class="ui-message ui-messages-error ui-corner-all">
+                                <div *ngIf="form.get('email').errors?.required"
+                                    class="ui-message ui-messages-error ui-corner-all">
+                                    من فضلك ادخل البريد الالكتروني
+                                </div>
+                                <div *ngIf="form.get('email').errors?.pattern"
+                                    class="ui-message ui-messages-error ui-corner-all" >
+                                    من فضلك ادخل بريد الكتروني صحيح
+                                </div>
+                            </div>
+
+                            <label style="width:100%; text-align: start;">البريد الالكتروني<span class="required-asterisk"
+                                    style="color: red;">*</span></label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="user.password" formControlName="password" id="password" name="password"  pInputText
+                                   type="text">
+                            <div *ngIf="(form.get('password').invalid&&form.get('password').touched)||validateAllForm"
+                                 class="ui-message ui-messages-error ui-corner-all">
+                                <div *ngIf="form.get('password').errors?.required"
+                                     class="ui-message ui-messages-error ui-corner-all" >
+                                    من فضلك ادخل الرقم السري
+                                </div>
+                                <div *ngIf="form.get('password').errors?.minlength"
+                                     class="ui-message ui-messages-error ui-corner-all" translate>
+                                     لابد ان يكون الرقم السري على الاقل 6 احرف او ارقام
+                                </div>
+                            </div>
+                            <label style="width:100%; text-align: start;">الرقم السري <span class="required-asterisk"
+                                                                           style="color: red;">*</span></label>
+                        </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="user.mobileNumber" formControlName="mobileNumber" id="mobileNumber" name="mobileNumber"  pInputText
+                                   type="text">
+                            <div *ngIf="(form.get('mobileNumber').invalid&&form.get('mobileNumber').touched)||validateAllForm"
+                                 class="ui-message ui-messages-error ui-corner-all">
+                                <div *ngIf="form.get('mobileNumber').errors?.required"
+                                     class="ui-message ui-messages-error ui-corner-all" >
+                                    من فضلك ادخل رقم التليفون
+                                </div>
+                                <div *ngIf="form.get('userName').errors?.pattern"
+                                     class="ui-message ui-messages-error ui-corner-all" >
+                                     رقم التليفون لابد ان يكون ارقام فقط
+                                </div>
+                            </div>
+                            <label style="width:100%; text-align: start;">رقم التليفون <span class="required-asterisk"
+                                                                           style="color: red;">*</span></label>
+                        </span>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <span class="md-inputfield">
+                            <input [(ngModel)]="user.nationalId" formControlName="nationalId" id="nationalId" name="nationalId"  pInputText
+                                   type="text">
+                            <label style="width:100%; text-align: start;">رقم الهوية </label>
+                        </span>
+                    </div>                    
+                </div>
+            </div>
+
+
+            <div class="card card-w-title">
+                <h1>الوظائف</h1>
+                <div>
+                    <p-tree [value]="userTree" selectionMode="checkbox" aria-checked="true"  [(selection)]="treeSelection"(onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnSelect($event)" ></p-tree>    
+                </div>                 
+            </div>
+            
+        </div>
+    </div>
+    <div class="ui-g form-group" dir="rtl" style="margin-left: auto;width: 20%;">
+        <div class=" ui-g-12 ui-md-6">
+            <button class="ui-button-info" icon="ui-icon-save" label="حفظ" pButton pRipple
+                    style="margin-top: 20px;" type="submit"></button>
+        </div>
+        <div class="ui-g-12 ui-md-6">
+            <button (click)="cancel()" class="p-button-rounded p-button-warning" icon="ui-icon-cancel" label="الغاء" pButton
+                    pRipple style="margin-top: 20px; background-color: #FBC02D;"
+                    type="button"></button>
+        </div>
+    </div>
+
+
+</form>
+

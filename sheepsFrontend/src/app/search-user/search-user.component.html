@@ -1,0 +1,55 @@
+<div class="ui-g ui-fluid" style="margin-top: 60px;">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <p-table #dt [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [value]="users" dataKey="userName"
+                    selectionMode="single" styleClass="ui-table-cars">
+                <ng-template pTemplate="caption" translate>
+                    <div>                  
+                            <label>الموظفين</label>
+                    </div>
+                </ng-template>
+                <ng-template let-columns pTemplate="header">
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr> 
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                            <input (input)="dt.filter($event.target.value, col.field, 'startsWith')" *ngSwitchCase="'userName'" class="ui-column-filter" pInputText
+                                placeholder="تحتوي على" style="width: 100%; margin-top: 0;"
+                                type="text">
+                            <input (input)="dt.filter($event.target.value, col.field, 'contains')" *ngSwitchCase="'password'" class="ui-column-filter" pInputText
+                                placeholder="تحتوي على" style="width: 100%; margin-top: 0;"
+                                type="text">
+                            <input (input)="dt.filter($event.target.value, col.field, 'contains')" *ngSwitchCase="'fullName'" class="ui-column-filter" pInputText
+                                placeholder="تحتوي على" style="width: 100%; margin-top: 0;"
+                                type="text">                    
+                            <input (input)="dt.filter($event.target.value, col.field, 'contains')" *ngSwitchCase="'mobileNumber'" class="ui-column-filter" pInputText
+                                placeholder="تحتوي على" style="width: 100%; margin-top: 0;"
+                                type="text">
+                                            
+                        </th>
+                        
+                    </tr>
+                </ng-template>
+                <ng-template let-columns="columns" let-rowData pTemplate="body">
+
+                    <tr [pEditableRow]="rowData" [pSelectableRow]="rowData">
+                        <td>{{rowData.userName}}</td>
+                        <td>{{rowData.password}}</td>
+                        <td>{{rowData.fullName}}</td>
+                        <td>{{rowData.mobileNumber}}</td>
+                        <td>
+                            <button (click)="editUser(rowData.id)" class="p-button-rounded p-button-success p-mr-2" icon="ui-icon-edit" pButton
+                                    pRipple
+                                    title="تعديل"></button>
+
+                        </td>    
+                    </tr>
+                </ng-template>
+            </p-table>
+            </div>
+        </div>
+</div>

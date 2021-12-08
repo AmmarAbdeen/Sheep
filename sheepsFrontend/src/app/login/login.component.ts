@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         encryptedData: encodedRequest
     };
     this.generalService.login(request).subscribe(
-        (responseData: any) => {console.log(responseData);
+        (responseData: any) => {
            localStorage.setItem('session-token', responseData.sessionToken);
            localStorage.setItem('user', JSON.stringify(responseData));
             this.isLoginBtnDisabled = false;
