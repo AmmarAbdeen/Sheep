@@ -26,9 +26,11 @@ import { IncomeComponent } from './income/income.component';
 import { SalesComponent } from './sales/sales.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 export const routes: Routes = [
-    {path: '', component: LoginComponent},
+    {path: '', component: LandingPageComponent},
+    {path: 'login', component: LoginComponent},
     { path: 'home', component: AppMainComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent },

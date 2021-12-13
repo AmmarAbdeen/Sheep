@@ -28,3 +28,7 @@ CREATE TABLE public.user(
    creation_date     timestamp,      --creationDate
    national_id   varchar(200)           --national_id
 );
+
+sudo yum install java-17-openjdk-devel
+sudo yum install java-17-openjdk
+sudo alternatives --config java
