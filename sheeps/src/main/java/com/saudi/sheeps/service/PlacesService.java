@@ -2,6 +2,7 @@ package com.saudi.sheeps.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.FeedDAO;
 import com.saudi.sheeps.dao.PlacesDAO;
 import com.saudi.sheeps.dao.PlacesFeedDAO;
@@ -18,6 +20,7 @@ import com.saudi.sheeps.dao.StoredFeedDAO;
 import com.saudi.sheeps.dto.FeedDTO;
 import com.saudi.sheeps.dto.PlacesDTO;
 import com.saudi.sheeps.dto.PlacesFeedDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.Feed;
 import com.saudi.sheeps.entity.Places;
 import com.saudi.sheeps.entity.PlacesFeed;
@@ -37,6 +40,8 @@ public class PlacesService {
 	private StoredFeedDAO storedFeedDAO;
 	@Autowired
 	private FeedService feedService;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 
 	public PlacesDTO addPlace(PlacesDTO request) throws BusinessException {
 		try {
@@ -53,6 +58,7 @@ public class PlacesService {
 			placesDAO.save(mapToEntity(request));
 			return request;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addPlace",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -92,6 +98,7 @@ public class PlacesService {
 			return request;
 
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addPlaceFeed",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -102,6 +109,7 @@ public class PlacesService {
 			 List<Places> places = placesDAO.findAll();		
 			return new Gson().toJson(mapToDTOList(places));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllPlaces",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -111,6 +119,7 @@ public class PlacesService {
 			 List<PlacesFeed> placesFeeds = placesFeedDAO.findAll();		
 			return new Gson().toJson(mapToPlacesFeedDTOList(placesFeeds));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllPlacesFeed",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}

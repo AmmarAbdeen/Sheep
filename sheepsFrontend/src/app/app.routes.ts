@@ -29,7 +29,6 @@ import { SearchUserComponent } from './search-user/search-user.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 export const routes: Routes = [
-    {path: '', component: LandingPageComponent},
     {path: 'login', component: LoginComponent},
     { path: 'home', component: AppMainComponent,
         children: [

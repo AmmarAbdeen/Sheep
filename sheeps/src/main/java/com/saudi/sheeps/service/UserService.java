@@ -1,5 +1,6 @@
 package com.saudi.sheeps.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,10 +10,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.PrivilegesDAO;
 import com.saudi.sheeps.dao.UserDAO;
 import com.saudi.sheeps.dto.PrivilegesDTO;
 import com.saudi.sheeps.dto.UserDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.Privileges;
 import com.saudi.sheeps.entity.User;
 import com.saudi.sheeps.exception.BusinessException;
@@ -29,6 +32,8 @@ public class UserService {
 	private PrivilegesDAO privilegesDAO; 
 	@Autowired
 	private JWTService jwtservice;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 	
 	public UserDTO login(UserDTO request) throws BusinessException{
 		try {
@@ -54,6 +59,7 @@ public class UserService {
 			userDTO.setSessionToken(token);
 			return userDTO;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"login",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 		
@@ -74,6 +80,7 @@ public class UserService {
 	
 			return new Gson().toJson(parentprivileges);
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllPrivilegesParentWithChildren",e.getMessage()));
 			throw new BusinessException("At  getprivileges Fun " + e.getMessage(), e);
 		}
 	}
@@ -83,6 +90,7 @@ public class UserService {
 			List<PrivilegesDTO> privilegesDTOs =mapToDTOPrivilegesList(privilegesDAO.findAllByUserIdAndAdminPrivilegeOrderByPrivilegeorder(userId, false));
 			return new Gson().toJson(privilegesDTOs);
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllPrivileges",e.getMessage()));
 			throw new BusinessException("At  getprivileges Fun " + e.getMessage(), e);
 		}
 	
@@ -163,6 +171,7 @@ public class UserService {
 			return mapToDTO(user,false,false);
 			
 		}catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"updateUserWithPrivileges",e.getMessage()));
 			throw new BusinessException("At  updateUserWithPrivileges Fun " + e.getMessage(), e);
 		}
 	}
@@ -188,6 +197,7 @@ public class UserService {
 			
 			return mapToDTO(user,false,false);
 		}catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addNewUserWithPrivileges",e.getMessage()));
 			throw new BusinessException("At  addNewUserWithPrivileges Fun " + e.getMessage(), e);
 		}
 	}

@@ -1,16 +1,18 @@
 package com.saudi.sheeps.service;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.FeedLookupsDAO;
 import com.saudi.sheeps.dto.FeedLookupsDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.FeedLookups;
 import com.saudi.sheeps.exception.BusinessException;
 
@@ -22,6 +24,8 @@ public class FeedLookupsService {
 	
 	@Autowired
 	private FeedLookupsDAO lookupsDAO;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 	
 	
 	public FeedLookupsDTO addFeedLookups(FeedLookupsDTO feedLookupsRequest) throws BusinessException {
@@ -67,11 +71,9 @@ public class FeedLookupsService {
 				lookupsDAO.save(mapToEntity(feedLookupsRequest));
 			}
 			
-
-			
-
 			return feedLookupsRequest;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addFeedLookups",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -81,6 +83,7 @@ public class FeedLookupsService {
 			 List<FeedLookups> feedLookups = lookupsDAO.findAll();		
 			return new Gson().toJson(mapToDTOList(feedLookups));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllFeedLookups",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -116,6 +119,7 @@ public class FeedLookupsService {
 			try {
 				feedLookupsDTOs.add(mapToDTO(lookup));
 			} catch (ParseException e) {
+				errorsDAO.save(new BugsAndError(LocalDateTime.now(),"mapToFeedLookupsDTOList",e.getMessage()));
 				e.printStackTrace();
 			}
 		}

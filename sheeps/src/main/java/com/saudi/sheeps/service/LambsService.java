@@ -21,12 +21,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.LambsDAO;
 import com.saudi.sheeps.dao.LookupsDAO;
 import com.saudi.sheeps.dao.PlacesDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dto.LambsDTO;
 import com.saudi.sheeps.dto.SheepDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.Lambs;
 import com.saudi.sheeps.entity.Lookups;
 import com.saudi.sheeps.entity.Places;
@@ -53,6 +55,8 @@ public class LambsService {
 	private PlacesService placesService;
 	@Autowired
 	private PlacesDAO placesDAO;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 	
 	public LambsDTO addNewLamb(LambsDTO lambsRequest)throws BusinessException{
 		try {
@@ -88,6 +92,7 @@ public class LambsService {
 			return lambsRequest;
 			
 		}catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addNewLamb",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 		
@@ -105,6 +110,7 @@ public class LambsService {
 			return new Gson().toJson(mapToDTO(lamb));
 			
 		}catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getLambBySpecificData",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -140,6 +146,7 @@ public class LambsService {
 			return lambDTO;
 
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"updateLamb",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -237,6 +244,7 @@ public class LambsService {
             List<Lambs> lambs = getLambs(em, query.toString(),params);
 			return new Gson().toJson(mapToDTOList(lambs));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"lambsSearch",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -312,6 +320,7 @@ public class LambsService {
 			try {
 				lambsDTOs.add(mapToDTO(lambs2));
 			} catch (ParseException e) {
+				errorsDAO.save(new BugsAndError(LocalDateTime.now(),"mapToLambsDTOList",e.getMessage()));
 				e.printStackTrace();
 			}
 		}

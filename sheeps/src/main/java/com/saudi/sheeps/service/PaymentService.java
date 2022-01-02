@@ -1,5 +1,6 @@
 package com.saudi.sheeps.service;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.GeneralPaymentsDAO;
 import com.saudi.sheeps.dao.IncomesDAO;
 import com.saudi.sheeps.dto.GeneralPaymentDTO;
 import com.saudi.sheeps.dto.IncomeDTO;
 import com.saudi.sheeps.dto.SheepDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.GeneralPayment;
 import com.saudi.sheeps.entity.Income;
 import com.saudi.sheeps.entity.Sheep;
@@ -28,6 +31,8 @@ public class PaymentService {
 	private GeneralPaymentsDAO paymentsDAO;
 	@Autowired
 	private IncomesDAO incomesDAO;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 	
 	public GeneralPaymentDTO savePayment(GeneralPaymentDTO request) throws BusinessException {
 		try {
@@ -41,6 +46,7 @@ public class PaymentService {
 			paymentsDAO.save(mapToEntity(request));
 			return request;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"savePayment",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -58,6 +64,7 @@ public class PaymentService {
 			incomesDAO.save(mapToEntity(request));
 			return request;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"saveIncomes",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -69,6 +76,7 @@ public class PaymentService {
 			List<GeneralPayment> payments = paymentsDAO.findAll();
 			return new Gson().toJson(mapToDTOList(payments));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllPayments",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -78,6 +86,7 @@ public class PaymentService {
 			List<Income> incomes = incomesDAO.findAll();
 			return new Gson().toJson(mapToIncomeDTOList(incomes));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllIncomes",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}

@@ -1,6 +1,7 @@
 package com.saudi.sheeps.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.LambsDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dao.StoredFeedDAO;
 import com.saudi.sheeps.dto.LabelsDataMapper;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.exception.BusinessException;
 
 import lombok.extern.apachecommons.CommonsLog;
@@ -26,12 +29,15 @@ public class DashbordService {
 	private LambsDAO lambsDAO;
 	@Autowired
 	private StoredFeedDAO feedDAO;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 
 	public String getAllSheepGroupByType() throws BusinessException {
 		try {
 			List<List> sheepsGroupByType = sheepDAO.getAllSheepsMaleAndFemale();
 			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(sheepsGroupByType));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllSheepGroupByType",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -41,6 +47,7 @@ public class DashbordService {
 			List<List> sheepsGroupByType = sheepDAO.getAllSheepPerAge();
 			return new Gson().toJson(LabelsDataMapper.toSpecificLabelsDataMap(sheepsGroupByType));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllSheepPerAge",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -54,6 +61,7 @@ public class DashbordService {
 			}
 			return new Gson().toJson(data);
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllSheepsAndLambsPerStatus",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -63,6 +71,7 @@ public class DashbordService {
 			List<List> lambsGroupByType = lambsDAO.getAllLambsPerMonth(LocalDate.now().minusMonths(LocalDate.now().getMonthValue()),LocalDate.now());
 			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(lambsGroupByType));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllLambsPerMonth",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -72,6 +81,7 @@ public class DashbordService {
 			List<List> amounts = feedDAO.getAllAmountOfStoredFeed();
 			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(amounts));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllAmountOfStoredFeed",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -82,6 +92,7 @@ public class DashbordService {
 			List<List> lambsGroupByType = lambsDAO.getAllLambsMaleAndFemale();
 			return new Gson().toJson(LabelsDataMapper.toLabelsDataMap(lambsGroupByType));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllLambsGroupByType",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}

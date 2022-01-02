@@ -1,5 +1,6 @@
 package com.saudi.sheeps.service;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.LambsDAO;
 import com.saudi.sheeps.dao.SalesDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dto.GeneralPaymentDTO;
 import com.saudi.sheeps.dto.SalesDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.Lambs;
 import com.saudi.sheeps.entity.Sales;
 import com.saudi.sheeps.entity.Sheep;
@@ -30,6 +33,8 @@ public class SaleService {
 	private LambsDAO lambsDAO;
 	@Autowired
 	private SheepDAO sheepDAO;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 	
 	public SalesDTO saveSales(SalesDTO request) throws BusinessException {
 		try {
@@ -73,6 +78,7 @@ public class SaleService {
 			salesDAO.save(mapToEntity(request));
 			return request;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"saveSales",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -82,6 +88,7 @@ public class SaleService {
 			List<Sales> sales = salesDAO.findAll();
 			return new Gson().toJson(mapToDTOList(sales));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllSales",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}

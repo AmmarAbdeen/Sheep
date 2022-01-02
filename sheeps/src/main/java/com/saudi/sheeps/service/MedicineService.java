@@ -2,6 +2,7 @@ package com.saudi.sheeps.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.MedicineDAO;
 import com.saudi.sheeps.dao.MedicineDiseaseOfSheepDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dto.FeedDTO;
 import com.saudi.sheeps.dto.MedicineDTO;
 import com.saudi.sheeps.dto.MedicineDiseaseOfSheepDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.Feed;
 import com.saudi.sheeps.entity.Medicine;
 import com.saudi.sheeps.entity.MedicineDiseaseOfSheep;
@@ -39,6 +42,8 @@ public class MedicineService {
 	private MedicineDAO medicineDAO;
 	@Autowired
 	private MedicineDiseaseOfSheepDAO medicineDiseaseOfSheepDAO;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 
 	public MedicineDTO addMedicine(MedicineDTO request) throws BusinessException {
 		try {
@@ -59,6 +64,7 @@ public class MedicineService {
 			medicineDAO.save(mapToEntity(request));
 			return request;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addMedicine",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -94,6 +100,7 @@ public class MedicineService {
 			medicineDiseaseOfSheepDAO.save(mapToEntity(request));
 			return request;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addMedicineDiseaseOfSheep",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -103,6 +110,7 @@ public class MedicineService {
 			List<Medicine> medicines = medicineDAO.findAll();
 			return new Gson().toJson(mapToDTOList(medicines));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllMedicines",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -113,6 +121,7 @@ public class MedicineService {
 				new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			return new Gson().toJson(mapToDTOList(medicines));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getAllValidMedicine",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -186,6 +195,7 @@ public class MedicineService {
 			try {
 				medicineDiseaseOfSheepDTOs.add(mapToDTO(medicine));
 			} catch (ParseException e) {
+				errorsDAO.save(new BugsAndError(LocalDateTime.now(),"mapToMedicineDiseaseOfSheepDTOList",e.getMessage()));
 				e.printStackTrace();
 			}
 		}

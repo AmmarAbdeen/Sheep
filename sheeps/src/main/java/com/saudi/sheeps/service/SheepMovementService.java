@@ -20,11 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.LambsDAO;
 import com.saudi.sheeps.dao.PlacesDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dao.SheepMovementDAO;
 import com.saudi.sheeps.dto.SheepMovementDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.Lambs;
 import com.saudi.sheeps.entity.Places;
 import com.saudi.sheeps.entity.Sheep;
@@ -50,6 +52,8 @@ public class SheepMovementService {
 	private SheepService sheepService;
 	@Autowired
 	private LambsService lambsService;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 	@PersistenceContext
 	public EntityManager em;
 
@@ -114,6 +118,7 @@ public class SheepMovementService {
 
 			return request;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addSheepMovement",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -150,6 +155,7 @@ public class SheepMovementService {
 			List<SheepMovement> sheepsMovement = getSheepsMovement(em, query.toString(), params);
 			return new Gson().toJson(mapToDTOList(sheepsMovement));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"sheepsMovementSearch",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 

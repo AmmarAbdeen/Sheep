@@ -18,10 +18,12 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
+import com.saudi.sheeps.dao.ErrorsDAO;
 import com.saudi.sheeps.dao.LookupsDAO;
 import com.saudi.sheeps.dao.PlacesDAO;
 import com.saudi.sheeps.dao.SheepDAO;
 import com.saudi.sheeps.dto.SheepDTO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.entity.Lookups;
 import com.saudi.sheeps.entity.Places;
 import com.saudi.sheeps.entity.Sheep;
@@ -41,6 +43,8 @@ public class SheepService {
 	private LookupsDAO lookupsDAO;
 	@Autowired
 	private PlacesDAO placesDAO;
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 	@PersistenceContext
 	public EntityManager em;
 
@@ -78,6 +82,7 @@ public class SheepService {
 			return sheepRequest;
 
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"addNewSheep",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -114,6 +119,7 @@ public class SheepService {
 			return sheepRequest;
 
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"updateSheep",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
@@ -152,6 +158,7 @@ public class SheepService {
 			return new Gson().toJson(mapToDTO(sheep));
 			
 		}catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"getSheepBySpecificData",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 	}
@@ -213,6 +220,7 @@ public class SheepService {
             List<Sheep> sheeps = getSheeps(em, query.toString(),params);
 			return new Gson().toJson(mapToDTOList(sheeps));
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"sheepsSearch",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 

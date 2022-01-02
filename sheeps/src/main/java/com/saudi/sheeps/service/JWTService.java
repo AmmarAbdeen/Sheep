@@ -1,11 +1,17 @@
 package com.saudi.sheeps.service;
 
 import java.security.Key;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.saudi.sheeps.dao.ErrorsDAO;
+import com.saudi.sheeps.entity.BugsAndError;
 import com.saudi.sheeps.exception.BusinessException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -16,6 +22,8 @@ import lombok.extern.apachecommons.CommonsLog;
 @CommonsLog
 @Service
 public class JWTService  {
+	@Autowired
+	private ErrorsDAO errorsDAO ;
 	
 	public String createJWT(Map<String, Object> headers, Map<String, String> claims) throws BusinessException {
 		try {
@@ -43,6 +51,7 @@ public class JWTService  {
 			log.info("jwtToken: " + jwtToken);
 			return jwtToken;
 		} catch (Exception e) {
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"createJWT",e.getMessage()));
 			throw new BusinessException("At  createJWT  Fun " + e.getMessage(), e);
 		}
 
@@ -56,6 +65,7 @@ public class JWTService  {
 			return claim;
 		} catch (Exception e) {
 			log.info(e.getMessage());
+			errorsDAO.save(new BugsAndError(LocalDateTime.now(),"decodeJWT",e.getMessage()));
 			throw new BusinessException(e.getMessage(), e);
 		}
 
