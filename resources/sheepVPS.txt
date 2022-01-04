@@ -1,5 +1,8 @@
 A@123123123a
 /var/lib/tomcat9/webapps/ مكان ال war
+to start tomcat -->sudo systemctl enable tomcat9
+to disable tomcat --> sudo systemctl disable tomcat9
+to restart tomcat --> sudo systemctl restart tomcat9
 su - postgres
 psql sheepFarm
 
