@@ -16,7 +16,7 @@ export class LandingPageComponent implements OnInit {
 
     let routeUrl = '/login';
     const url = this.router.serializeUrl(this.router.createUrlTree([routeUrl]));
-    window.open(url, '_blank');
+    window.open("http://www.tharwh.com/sheepFarm/", '_self');
   }
 
 }

@@ -1,5 +1,5 @@
 A@123123123a
-
+/var/lib/tomcat9/webapps/ مكان ال war
 su - postgres
 psql sheepFarm
 
