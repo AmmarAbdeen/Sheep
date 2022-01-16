@@ -8,7 +8,7 @@ declare var gtag :any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'landingPage';
+  title = 'Sheep Farm';
    constructor(router: Router){
     router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
