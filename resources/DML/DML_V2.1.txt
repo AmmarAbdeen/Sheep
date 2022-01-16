@@ -1,0 +1,2 @@
+insert into public.lookups (id,code,name_ar,name_en,"type") values
+(4,'orange','برتقالي','Orange','color');
