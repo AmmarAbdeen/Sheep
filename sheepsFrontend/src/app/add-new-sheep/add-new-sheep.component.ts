@@ -14,7 +14,7 @@ import { Sheep } from '../vo/Sheep';
 export class AddNewSheepComponent implements OnInit {
 
     form = new FormGroup({
-    code: new FormControl('', [Validators.required, Validators.pattern("^[0-9]")]),
+    code: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
     color: new FormControl('', [Validators.required]),
     named: new FormControl('', [Validators.required]),
     // age: new FormControl('', [Validators.required]),

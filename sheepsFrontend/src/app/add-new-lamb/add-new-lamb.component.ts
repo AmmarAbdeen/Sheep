@@ -14,7 +14,7 @@ import { Lamb } from '../vo/Lamb';
 export class AddNewLambComponent implements OnInit {
 
   form = new FormGroup({
-    code: new FormControl('', [Validators.required, Validators.pattern("^[0-9]")]),
+    code: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
     color: new FormControl('', [Validators.required]),
     named: new FormControl('', [Validators.required]),
     dateOfMating: new FormControl('', [Validators.required]),
