@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saudi.sheeps.dao.ErrorsDAO;
+import com.saudi.sheeps.dao.LookupsDAO;
 import com.saudi.sheeps.entity.BugsAndError;
+import com.saudi.sheeps.entity.Lookups;
 import com.saudi.sheeps.exception.BusinessException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -24,6 +26,8 @@ import lombok.extern.apachecommons.CommonsLog;
 public class JWTService  {
 	@Autowired
 	private ErrorsDAO errorsDAO ;
+	@Autowired
+	private LookupsDAO lookupsDAO ;
 	
 	public String createJWT(Map<String, Object> headers, Map<String, String> claims) throws BusinessException {
 		try {
@@ -39,7 +43,7 @@ public class JWTService  {
 
 			long nowMillis = System.currentTimeMillis();
 			Date now = new Date(nowMillis);
-			long expMillis = nowMillis +  Long.parseLong("10800000"); // 3 hour 10800000 millesecond
+			long expMillis = nowMillis +  getExpireTime(); // 3 hour 10800000 millesecond
 			Date exp = new Date(expMillis);
 			String jwtToken = Jwts.builder() // Build Token
 					.setHeaderParams(headers)// Set headers
@@ -69,6 +73,19 @@ public class JWTService  {
 			throw new BusinessException(e.getMessage(), e);
 		}
 
+	}
+	
+	private long getExpireTime() throws BusinessException {
+		try {
+			log.info("Enter getExpireTime Function...");
+			 Lookups lookupsTime = lookupsDAO.findByCode("JWT_EXPIRETIME");
+			String expireTime =lookupsTime != null ?lookupsTime.getNameEN():"21600000";
+			long time = Long.parseLong(expireTime);
+			log.info("Expire Time In milleSeconds =" + time + " In mins = " + time / 60000);
+			return time;
+		} catch (Exception e) {
+			throw new BusinessException("At  getExpireTime  Fun " + e.getMessage(), e);
+		}
 	}
 	
 }

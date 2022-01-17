@@ -108,7 +108,6 @@ import { SalesComponent } from './sales/sales.component';
 import { IncomeComponent } from './income/income.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
     imports: [
@@ -215,8 +214,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
         SalesComponent,
         IncomeComponent,
         AddUserComponent,
-        SearchUserComponent,
-        LandingPageComponent
+        SearchUserComponent
         ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},
