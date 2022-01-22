@@ -35,6 +35,7 @@ export class AddNewSheepComponent implements OnInit {
   editMode = false;
   statuses: SelectItem[];
   types: SelectItem[];
+  names: SelectItem[];
   colors: SelectItem[];
   places: SelectItem[];
   @ViewChild('addForm') addNewSheepForm: NgForm;
@@ -69,6 +70,10 @@ export class AddNewSheepComponent implements OnInit {
           label: this.sheep.color,
           value: this.sheep.color
       });
+      this.names.push({
+        label: this.sheep.named,
+        value: this.sheep.named
+    });
            this.sheep.birthDate = this.sheep.birthDate != null ? new Date(this.sheep.birthDate) : null;
            this.sheep.arrivalDate = this.sheep.arrivalDate != null ? new Date(this.sheep.arrivalDate) : null;
           },(error) => {
@@ -82,6 +87,7 @@ export class AddNewSheepComponent implements OnInit {
     this.typeLookups();
     this.colorLookups();
     this.placeLookups();
+    this.namesLookups();
   }
 
   onSubmit(){
@@ -143,6 +149,26 @@ export class AddNewSheepComponent implements OnInit {
       {label: 'فحل', value: 'ram'},
       {label: 'نعجة', value: 'ewe'}
       ];
+  }
+
+  namesLookups(){
+    this.names =[];
+    this.generalService.getLookupsByType("named").subscribe(
+      (responseData: any) => {
+          for (let i = 0; i < responseData.length; i++) {
+              this.names.push({
+                  label: responseData[i].nameAR,
+                  value: responseData[i].nameAR
+              });
+          }
+      },
+      (error: any) => {
+        document.documentElement.scrollTop = 0;
+        this.messageService.clear();
+        console.log(error);
+        this.messageService.add({severity: 'error', detail: "هناك مشكلة في تحميل الحظائر حاول مرة اخرى"});
+      }
+  );
   }
   colorLookups(){
     this.colors =[];

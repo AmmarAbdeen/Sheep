@@ -114,18 +114,16 @@
 
                     <div class="ui-g-12 ui-md-6">
                         <span class="md-inputfield">
-                            <input [(ngModel)]="sheep.named" formControlName="named"
-                                id="named" name="named"  pInputText type="text">
+                            <p-dropdown [(ngModel)]="sheep.named" [options]="names"
+                                formControlName="named" id="named" name="named"
+                                placeholder="المسمي"></p-dropdown>
                                 <div *ngIf="(form.get('named').invalid&&form.get('named').touched)||validateAllForm"
                                 class="ui-message ui-messages-error ui-corner-all">
                                     <div *ngIf="form.get('named').errors?.required"
-                                        class="ui-message ui-messages-error ui-corner-all" translate>
-                                        المسمي مطلوب 
+                                        class="ui-message ui-messages-error ui-corner-all">
+                                        المسمي مطلوب
                                     </div>
-                                    
-                            </div>
-                            <label>المسمي<span class="required-asterisk"
-                                style="color: red;">*</span></label>
+                                </div>
                         </span>
                     </div>
                     <div class="ui-g-12 ui-md-6">
