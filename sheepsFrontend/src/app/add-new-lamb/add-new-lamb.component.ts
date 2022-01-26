@@ -128,7 +128,7 @@ export class AddNewLambComponent implements OnInit {
                   document.documentElement.scrollTop = 0;
                   this.messageService.clear();
                   console.log(error);
-                  this.messageService.add({severity: 'error', detail: "هناك خطأ في الاضافة حاول مره اخرى"});
+                  this.messageService.add({severity: 'error', detail: error.error.description});
                  }
              );
   }

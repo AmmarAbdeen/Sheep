@@ -81,11 +81,11 @@ public class LambsService {
 			}
 			Sheep sheep = sheepDAO.findByCodeAndColor(lambsRequest.getSheepDTO().getCode(), lambsRequest.getSheepDTO().getColor());
 			if (sheep == null) {
-				throw new BusinessException("The lamb mother not exist");
+				throw new BusinessException("هذه الام غير موجوده");
 			}
 			Lambs lambs = lambsDAO.findByCodeAndColor(lambsRequest.getCode(), lambsRequest.getColor());
 			if (lambs != null) {
-				throw new BusinessException("This Lambs is already added");
+				throw new BusinessException("تم اضافة هذا الحمل من قبل يرجى تغير الكود او اللون");
 			}
 			Lambs lambsSaved = mapToEntity(lambsRequest);
 			lambsDAO.save(lambsSaved);
@@ -138,7 +138,7 @@ public class LambsService {
 			}
 			Sheep sheep = sheepDAO.findByCodeAndColor(lambDTO.getSheepDTO().getCode(), lambDTO.getSheepDTO().getColor());
 			if (sheep == null) {
-				throw new BusinessException("The lamb mother not exist");
+				throw new BusinessException("هذه الام غير موجوده");
 			}
 			Lambs lamb = lambsDAO.findById(lambDTO.getId()).get();
 			saveChangedDTOInEntity(lamb,lambDTO);

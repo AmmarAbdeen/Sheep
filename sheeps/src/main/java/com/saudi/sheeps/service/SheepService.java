@@ -59,7 +59,7 @@ public class SheepService {
 			}
 			if (sheepRequest.getWeight() == null || sheepRequest.getWeight().isEmpty()
 					|| sheepRequest.getWeight().equals("0")) {
-				throw new BusinessException("Sheep color is required and mustn't be zero");
+				throw new BusinessException("لابد من ادخال الوزن ولا يمكن ان يكون بصفر");
 			}
 			if (sheepRequest.getBirthDate() == null || sheepRequest.getBirthDate().isEmpty()) {
 				throw new BusinessException("Birth date of sheep is required");
@@ -75,7 +75,7 @@ public class SheepService {
 			}
 			Sheep sheep = sheepDAO.findByCodeAndColor(sheepRequest.getCode(), sheepRequest.getColor());
 			if (sheep != null) {
-				throw new BusinessException("This sheep is already added");
+				throw new BusinessException("تمت اضافته من قبل يرجى تغير الكود او اللون لاضافة جديد");
 			}
 			Sheep sheepSaved = mapToEntity(sheepRequest);
 			sheepDAO.save(sheepSaved);
@@ -99,7 +99,7 @@ public class SheepService {
 			}
 			if (sheepRequest.getWeight() == null || sheepRequest.getWeight().isEmpty()
 					|| sheepRequest.getWeight().equals("0")) {
-				throw new BusinessException("Sheep color is required and mustn't be zero");
+				throw new BusinessException("لابد من ادخال الوزن ولا يمكن ان يكون بصفر");
 			}
 			if (sheepRequest.getBirthDate() == null || sheepRequest.getBirthDate().isEmpty()) {
 				throw new BusinessException("Birth date of sheep is required");
